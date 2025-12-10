@@ -16,10 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="FondAccueil.png" />
     <None Remove="img\biche.png" />
     <None Remove="img\Bonus.png" />
     <None Remove="img\camion.png" />
     <None Remove="img\flaquehuile.png" />
+    <None Remove="img\FondAccueil.png" />
     <None Remove="img\FondBase.png" />
     <None Remove="img\FondBase_neige.png" />
     <None Remove="img\FondForet.png" />
@@ -36,6 +38,12 @@
     <None Remove="img\moto_right_blue.png" />
     <None Remove="img\moto_right_pink.png" />
     <None Remove="img\voiture.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\FondAccueil.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

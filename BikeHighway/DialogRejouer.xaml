@@ -10,7 +10,7 @@
         ResizeMode="NoResize"
         >
     <Grid>
-        <Button x:Name="butAcceuil" Content="Acceuil" HorizontalAlignment="Center" Margin="0,419,0,0" VerticalAlignment="Top" Width="156" FontSize="24"/>
+        <Button x:Name="butAccueil" Content="Accueil" HorizontalAlignment="Center" Margin="0,419,0,0" VerticalAlignment="Top" Width="156" FontSize="24"/>
         <Button x:Name="butRejouer" Content="Rejouer" HorizontalAlignment="Center" Margin="0,364,0,0" VerticalAlignment="Top" Width="156" FontSize="24"/>
         <Label Content="Score :" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" FontFamily="Bernard MT Condensed" FontSize="24" Width="85"/>
         <Label Content="Meilleur score :" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" FontFamily="Bernard MT Condensed" FontSize="16" Height="25" Width="112"/>

@@ -58,6 +58,5 @@ namespace MotorBikeHighway
             moto[conteur] = new BitmapImage(img);
             imageMoto.Source = moto[conteur];
         }
-
     }
 }

@@ -60,7 +60,7 @@ namespace MotorBikeHighway
         private void SliderSFX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             // e.NewValue est entre 0 et 100
-            // TODO: Appliquer aux sons ponctuels
+            // TODO: Appliquer aux SFX
         }
 
         // --- NAVIGATION ---

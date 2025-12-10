@@ -21,8 +21,16 @@ namespace MotorBikeHighway
         public MainWindow()
         {
             InitializeComponent();
-            InitializeTimer();
+            AfficheDemarrage();
         }
+        private void AfficheDemarrage()
+        {
+            UCAccueil uc = new UCAccueil();
+            ZoneJeu.Content = uc;
+            uc.butChoixMoto.Click += AfficherChoixMoto;
+            uc.butOptions.Click += AfficherOptions;
+        }
+
         // -- INITIALISATION DE LA MINUTERIE --
         private void InitializeTimer()
         {
@@ -34,19 +42,25 @@ namespace MotorBikeHighway
             // lancement du timer
             minuterie.Start();
         }
-        // -- OUVRE dialogOptions.xaml --
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            minuterie.Stop();
-            DialogOptions options = new DialogOptions();
-            options.Owner = this; // centrage
-            options.ShowDialog();
-
-            minuterie.Start();
-        }
         private void Jeu(object? sender, EventArgs e)
         {
-
+            InitializeTimer();
+        }
+        private void AfficherChoixMoto(object sender, RoutedEventArgs e)
+        {
+            UCChoixMoto uc = new UCChoixMoto();
+            ZoneJeu.Content = uc;
+        }
+        private void AfficherOptions(object sender, RoutedEventArgs e)
+        {
+            DialogOptions options = new DialogOptions();
+            options.Owner = this;
+            options.ShowDialog();
+        }
+        private void AfficherJeu(object sender, RoutedEventArgs e)
+        {
+            //UCJeu uc = new UCJeu();
+            //ZoneJeu.Content = uc;
         }
     }
 }
