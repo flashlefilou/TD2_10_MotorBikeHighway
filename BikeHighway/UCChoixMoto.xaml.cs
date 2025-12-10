@@ -20,9 +20,44 @@ namespace MotorBikeHighway
     /// </summary>
     public partial class UCChoixMoto : UserControl
     {
+        public static uint conteur = 0;
+        public static BitmapImage[] moto = new BitmapImage[3];
+        public static string[] img_Moto = { "moto", "moto_blue", "moto_pink" };
+
         public UCChoixMoto()
         {
             InitializeComponent();
+            MettreAJourBoutons();  
         }
+
+        private void butdroit_Click(object sender, RoutedEventArgs e)
+        {
+            conteur++;
+            MettreAJourBoutons();
+            MettreAJourImage();
+        }
+
+        private void butgauche_Click(object sender, RoutedEventArgs e)
+        {
+            conteur--;
+            MettreAJourBoutons();
+            MettreAJourImage();
+        }
+
+        
+        private void MettreAJourBoutons()
+        {
+            butgauche.IsEnabled = (conteur > 0); // Désactive le bouton gauche si on est sur la première moto
+            butdroit.IsEnabled = (conteur < img_Moto.Length - 1); // Désactive le bouton droit si on est sur la dernière moto
+        }
+
+        
+        private void MettreAJourImage()
+        {
+            Uri img = new Uri($"pack://application:,,,/img/{img_Moto[conteur]}.png");
+            moto[conteur] = new BitmapImage(img);
+            imageMoto.Source = moto[conteur];
+        }
+
     }
 }

@@ -1,12 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="son jeux\**" />
+    <EmbeddedResource Remove="son jeux\**" />
+    <None Remove="son jeux\**" />
+    <Page Remove="son jeux\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="img\biche.png" />
@@ -29,63 +36,67 @@
     <None Remove="img\moto_right_blue.png" />
     <None Remove="img\moto_right_pink.png" />
     <None Remove="img\voiture.png" />
-    <None Remove="sons\action-racing-speed-music-331470.mp3" />
-    <None Remove="sons\car-crash-211710.mp3" />
-    <None Remove="sons\crash.mp3" />
-    <None Remove="sons\harley-davidson-sportster-acceleration-345717.mp3" />
-    <None Remove="sons\level-up-bonus-sequence-1-186890.mp3" />
-    <None Remove="sons\motorcycle-engine-rev-2-337870.mp3" />
-    <None Remove="sons\retro-retro-synthwave-gaming-music-270173.mp3" />
-    <None Remove="sons\son acceuil.mp3" />
-    <None Remove="sons\success-fanfare-trumpets-6185.mp3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="img\biche.png" />
-    <Resource Include="img\Bonus.png" />
-    <Resource Include="img\camion.png" />
-    <Resource Include="img\flaquehuile.png" />
-    <Resource Include="img\FondBase.png" />
-    <Resource Include="img\FondBase_neige.png" />
-    <Resource Include="img\FondForet.png" />
-    <Resource Include="img\FondNeige.png" />
-    <Resource Include="img\FondNeige_Base.png" />
-    <Resource Include="img\moto.png" />
-    <Resource Include="img\moto2.png" />
-    <Resource Include="img\moto_blue.png" />
-    <Resource Include="img\moto_left.png" />
-    <Resource Include="img\moto_left_blue.png" />
-    <Resource Include="img\moto_left_pink.png" />
-    <Resource Include="img\moto_pink.png" />
-    <Resource Include="img\moto_right.png" />
-    <Resource Include="img\moto_right_blue.png" />
-    <Resource Include="img\moto_right_pink.png" />
-    <Resource Include="img\voiture.png" />
-    <Resource Include="sons\action-racing-speed-music-331470.mp3">
+    <Resource Include="img\biche.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="sons\car-crash-211710.mp3">
+    <Resource Include="img\Bonus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="sons\crash.mp3">
+    <Resource Include="img\camion.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="sons\harley-davidson-sportster-acceleration-345717.mp3">
+    <Resource Include="img\flaquehuile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="sons\level-up-bonus-sequence-1-186890.mp3">
+    <Resource Include="img\FondBase.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="sons\motorcycle-engine-rev-2-337870.mp3">
+    <Resource Include="img\FondBase_neige.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="sons\retro-retro-synthwave-gaming-music-270173.mp3">
+    <Resource Include="img\FondForet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="sons\son acceuil.mp3">
+    <Resource Include="img\FondNeige.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="sons\success-fanfare-trumpets-6185.mp3">
+    <Resource Include="img\FondNeige_Base.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moto.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moto2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moto_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moto_left.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moto_left_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moto_left_pink.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moto_pink.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moto_right.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moto_right_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\moto_right_pink.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\voiture.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
