@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MotorBikeHighway"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="700" Width="455">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Height="20" Width="455" Grid.Row="0"> 
+            <MenuItem Header="_Options" Click="MenuItem_Click"/>
+        </Menu>
+        <Canvas x:Name="canvasJeu" Canvas.Top="0" Canvas.Left="0" Canvas.Right="0" Canvas.Bottom="0" Grid.Row="1">
+            <Image Source="/img/FondBase.png" Stretch="Fill" Height="665" Width="455"/>
+        </Canvas>
     </Grid>
 </Window>

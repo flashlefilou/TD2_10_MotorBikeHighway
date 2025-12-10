@@ -9,43 +9,83 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="son jeux\action-racing-speed-music-331470.mp3" />
-    <None Remove="son jeux\car-crash-211710.mp3" />
-    <None Remove="son jeux\crash.mp3" />
-    <None Remove="son jeux\harley-davidson-sportster-acceleration-345717.mp3" />
-    <None Remove="son jeux\level-up-bonus-sequence-1-186890.mp3" />
-    <None Remove="son jeux\motorcycle-engine-rev-2-337870.mp3" />
-    <None Remove="son jeux\retro-retro-synthwave-gaming-music-270173.mp3" />
-    <None Remove="son jeux\son acceuil.mp3" />
-    <None Remove="son jeux\success-fanfare-trumpets-6185.mp3" />
+    <None Remove="img\biche.png" />
+    <None Remove="img\Bonus.png" />
+    <None Remove="img\camion.png" />
+    <None Remove="img\flaquehuile.png" />
+    <None Remove="img\FondBase.png" />
+    <None Remove="img\FondBase_neige.png" />
+    <None Remove="img\FondForet.png" />
+    <None Remove="img\FondNeige.png" />
+    <None Remove="img\FondNeige_Base.png" />
+    <None Remove="img\moto.png" />
+    <None Remove="img\moto2.png" />
+    <None Remove="img\moto_blue.png" />
+    <None Remove="img\moto_left.png" />
+    <None Remove="img\moto_left_blue.png" />
+    <None Remove="img\moto_left_pink.png" />
+    <None Remove="img\moto_pink.png" />
+    <None Remove="img\moto_right.png" />
+    <None Remove="img\moto_right_blue.png" />
+    <None Remove="img\moto_right_pink.png" />
+    <None Remove="img\voiture.png" />
+    <None Remove="sons\action-racing-speed-music-331470.mp3" />
+    <None Remove="sons\car-crash-211710.mp3" />
+    <None Remove="sons\crash.mp3" />
+    <None Remove="sons\harley-davidson-sportster-acceleration-345717.mp3" />
+    <None Remove="sons\level-up-bonus-sequence-1-186890.mp3" />
+    <None Remove="sons\motorcycle-engine-rev-2-337870.mp3" />
+    <None Remove="sons\retro-retro-synthwave-gaming-music-270173.mp3" />
+    <None Remove="sons\son acceuil.mp3" />
+    <None Remove="sons\success-fanfare-trumpets-6185.mp3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="son jeux\action-racing-speed-music-331470.mp3">
+    <Resource Include="img\biche.png" />
+    <Resource Include="img\Bonus.png" />
+    <Resource Include="img\camion.png" />
+    <Resource Include="img\flaquehuile.png" />
+    <Resource Include="img\FondBase.png" />
+    <Resource Include="img\FondBase_neige.png" />
+    <Resource Include="img\FondForet.png" />
+    <Resource Include="img\FondNeige.png" />
+    <Resource Include="img\FondNeige_Base.png" />
+    <Resource Include="img\moto.png" />
+    <Resource Include="img\moto2.png" />
+    <Resource Include="img\moto_blue.png" />
+    <Resource Include="img\moto_left.png" />
+    <Resource Include="img\moto_left_blue.png" />
+    <Resource Include="img\moto_left_pink.png" />
+    <Resource Include="img\moto_pink.png" />
+    <Resource Include="img\moto_right.png" />
+    <Resource Include="img\moto_right_blue.png" />
+    <Resource Include="img\moto_right_pink.png" />
+    <Resource Include="img\voiture.png" />
+    <Resource Include="sons\action-racing-speed-music-331470.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="son jeux\car-crash-211710.mp3">
+    <Resource Include="sons\car-crash-211710.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="son jeux\crash.mp3">
+    <Resource Include="sons\crash.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="son jeux\harley-davidson-sportster-acceleration-345717.mp3">
+    <Resource Include="sons\harley-davidson-sportster-acceleration-345717.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="son jeux\level-up-bonus-sequence-1-186890.mp3">
+    <Resource Include="sons\level-up-bonus-sequence-1-186890.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="son jeux\motorcycle-engine-rev-2-337870.mp3">
+    <Resource Include="sons\motorcycle-engine-rev-2-337870.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="son jeux\retro-retro-synthwave-gaming-music-270173.mp3">
+    <Resource Include="sons\retro-retro-synthwave-gaming-music-270173.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="son jeux\son acceuil.mp3">
+    <Resource Include="sons\son acceuil.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="son jeux\success-fanfare-trumpets-6185.mp3">
+    <Resource Include="sons\success-fanfare-trumpets-6185.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

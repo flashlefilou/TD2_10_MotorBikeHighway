@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MotorBikeHighway
 {
@@ -16,9 +17,36 @@ namespace MotorBikeHighway
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer minuterie;
         public MainWindow()
         {
             InitializeComponent();
+            InitializeTimer();
+        }
+        // -- INITIALISATION DE LA MINUTERIE --
+        private void InitializeTimer()
+        {
+            minuterie = new DispatcherTimer();
+            // configure l'intervalle du Timer :62 images par s
+            minuterie.Interval = TimeSpan.FromMilliseconds(16);
+            // associe l’appel de la méthode Jeu à la fin de la minuterie
+            minuterie.Tick += Jeu;
+            // lancement du timer
+            minuterie.Start();
+        }
+        // -- OUVRE dialogOptions.xaml --
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            minuterie.Stop();
+            DialogOptions options = new DialogOptions();
+            options.Owner = this; // centrage
+            options.ShowDialog();
+
+            minuterie.Start();
+        }
+        private void Jeu(object? sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,0 +1,58 @@
+﻿<Window x:Class="MotorBikeHighway.DialogReglesJeu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Règles du jeu" 
+        Height="500" Width="400"
+        WindowStartupLocation="CenterOwner" 
+        ResizeMode="NoResize"
+        Background="#F0F0F0">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Comment jouer ?" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" Foreground="Black" Grid.Row="0"/>
+
+        <ScrollViewer Grid.Row="1" Margin="0,15" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10" FontSize="14">
+                    Le but est de doubler les véhicules. Vous dirigez la moto (gauche/droite) pour éviter les collisions.
+                </TextBlock>
+
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                    <Bold>Progression :</Bold> Le score augmente après chaque ligne de voitures dépassée. La vitesse accélère avec le temps.
+                </TextBlock>
+
+                <TextBlock TextWrapping="Wrap" Margin="0,5">
+                    <Bold>Ennemis :</Bold> Les voitures changent de voie et de vitesse aléatoirement.
+                </TextBlock>
+
+                <TextBlock TextWrapping="Wrap" Margin="0,5">
+                    <Bold>⚠️ Dangers :</Bold>
+                </TextBlock>
+
+                <TextBlock TextWrapping="Wrap" Margin="10,0,0,5">
+                    • <Bold>Biches :</Bold> Elles traversent la route, esquivez-les !
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap" Margin="10,0,0,5">
+                    • <Bold>Huile :</Bold> Provoque un 360°. Contrôle impossible jusqu'à stabilisation.
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap" Margin="10,0,0,5">
+                    • <Bold>Barrières :</Bold> 1er contact = Rebond. 2ème contact (sous 5s) = <Run Foreground="Red" FontWeight="Bold">Mort</Run>.
+                </TextBlock>
+
+                <TextBlock TextWrapping="Wrap" Margin="0,10,0,0">
+                    <Bold>🎁 Bonus :</Bold> Récupérez des vies supplémentaires sur la route.
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Content="Compris !" Grid.Row="2" Height="35" Width="120" Click="BtnFermer_Click" IsCancel="True"/>
+    </Grid>
+</Window>

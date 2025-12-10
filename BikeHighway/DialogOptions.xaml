@@ -1,0 +1,70 @@
+﻿<Window x:Class="MotorBikeHighway.DialogOptions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MotorBikeHighway"
+        mc:Ignorable="d"
+        Title="Options" 
+        Height="550" Width="400"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#F0F0F0">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="OPTIONS" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#333" Margin="0,0,0,20"/>
+
+        <GroupBox Header="Paramètres Audio" Grid.Row="1" Margin="0,0,0,20" Padding="10">
+            <StackPanel>
+
+                <TextBlock Text="Musique d'ambiance" FontWeight="Bold" Margin="0,0,0,5"/>
+
+                <CheckBox x:Name="chkMusique" Content="Activer la musique" IsChecked="True" Checked="ChkMusique_Changed" Unchecked="ChkMusique_Changed" Margin="0,0,0,5"/>
+
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="35"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Vol :" Grid.Column="0"/>
+                    <Slider x:Name="sliderMusique" Grid.Column="1" Minimum="0" Maximum="100" Value="50" ValueChanged="SliderMusique_ValueChanged" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding ElementName=sliderMusique, Path=Value, StringFormat={}{0:N0}%}" 
+                               Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </Grid>
+
+                <Separator Margin="0,0,0,10"/>
+
+                <TextBlock Text="Effets Sonores (Bruitages)" FontWeight="Bold" Margin="0,0,0,5"/>
+
+                <CheckBox x:Name="chkSFX" Content="Activer les bruitages" IsChecked="True" Checked="ChkSFX_Changed" Unchecked="ChkSFX_Changed" Margin="0,0,0,5"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="35"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Vol :" Grid.Column="0"/>
+                    <Slider x:Name="sliderSFX" Grid.Column="1" Minimum="0" Maximum="100" Value="80" ValueChanged="SliderSFX_ValueChanged" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding ElementName=sliderSFX, Path=Value, StringFormat={}{0:N0}%}" 
+                               Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </Grid>
+
+            </StackPanel>
+        </GroupBox>
+
+        <StackPanel Grid.Row="2" VerticalAlignment="Top" Margin="0,10,0,0">
+            <Button Content="Règles du jeu" Height="45" Click="BtnRegles_Click" Background="#DDDDDD" FontSize="14"/>
+        </StackPanel>
+
+        <Button Content="Retour" Grid.Row="3" Height="35" Width="100" Click="BtnFermer_Click" IsCancel="True"/>
+    </Grid>
+</Window>
