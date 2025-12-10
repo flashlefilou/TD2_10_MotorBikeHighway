@@ -5,14 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MotorBikeHighway"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="665" d:DesignWidth="445"
+             >
     <Grid>
-        <RadioButton x:Name="rbMoto" Content="RadioButton" HorizontalAlignment="Center" VerticalAlignment="Center" Height="114" Width="152"/>
-        <Button x:Name="butdroit" Content="&#x25BA;" HorizontalAlignment="Left" Margin="476,0,0,0" VerticalAlignment="Center" Height="38" Width="26" FontSize="16" FontFamily="Arial"/>
-        <Label x:Name="labTitre" Content="Chosir votre moto" HorizontalAlignment="Center" Margin="0,56,0,0" VerticalAlignment="Top"  Foreground="White" FontFamily="Elephant" FontSize="48" HorizontalContentAlignment="Center"
+
+        <Image x:Name="imageMoto" Source="img/moto.png" Margin="102,187,101,150"  />
+
+
+
+
+
+        <Button x:Name="butdroit" Content="&#x25BA;" HorizontalAlignment="Left" Margin="315,326,0,0" VerticalAlignment="Top" Height="38" Width="26" FontSize="16" FontFamily="Arial" Click="butdroit_Click"/>
+        <Label x:Name="labTitre" Content="Chosir votre moto" HorizontalAlignment="Left" Margin="0,65,0,0" VerticalAlignment="Top"  Foreground="Black" FontFamily="Elephant" FontSize="48" HorizontalContentAlignment="Center"
 VerticalContentAlignment="Center"/>
-        <Button x:Name="butgauche" Content="&#x25C4;" HorizontalAlignment="Left" Margin="293,0,0,0" VerticalAlignment="Center" Height="38" Width="26" FontSize="16" FontFamily="Arial"/>
-        <Button x:Name="butJouer" Content="Jouer" HorizontalAlignment="Center" Margin="0,327,0,0" VerticalAlignment="Top" Height="49" Width="152" FontSize="36"/>
+        <Button x:Name="butgauche" Content="&#x25C4;" HorizontalAlignment="Left" Margin="100,332,0,0" VerticalAlignment="Top" Height="38" Width="26" FontSize="16" FontFamily="Arial" Click="butgauche_Click" RenderTransformOrigin="1.654,0.539"/>
+        <Button x:Name="butJouer" Content="Jouer" HorizontalAlignment="Left" Margin="96,515,0,0" VerticalAlignment="Top" Height="96" Width="232" FontSize="72" />
 
     </Grid>
 </UserControl>

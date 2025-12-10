@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -6,25 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MotorBikeHighway
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logique d'interaction pour DialogRejouer.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DialogRejouer : Window
     {
-        public MainWindow()
+        public DialogRejouer()
         {
             InitializeComponent();
-            AfficheChoixMoto();
         }
-        private void AfficheChoixMoto()
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            UCChoixMoto uc = new UCChoixMoto();
-            ZoneJeu.Content = uc;
+
         }
     }
 }
