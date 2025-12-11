@@ -18,10 +18,13 @@ namespace MotorBikeHighway
     public partial class MainWindow : Window
     {
         private DispatcherTimer minuterie;
+        public static string Moto = "moto";
         public MainWindow()
         {
             InitializeComponent();
             AfficheDemarrage();
+            InitializeTimer();
+            this.KeyDown += MainWindow_KeyDown;
         }
         private void AfficheDemarrage()
         {
@@ -29,7 +32,9 @@ namespace MotorBikeHighway
             ZoneJeu.Content = uc;
             uc.butChoixMoto.Click += AfficherChoixMoto;
             uc.butOptions.Click += AfficherOptions;
+            uc.butJouer.Click += AfficherJeu;
         }
+        
 
         // -- INITIALISATION DE LA MINUTERIE --
         private void InitializeTimer()
@@ -39,8 +44,6 @@ namespace MotorBikeHighway
             minuterie.Interval = TimeSpan.FromMilliseconds(16);
             // associe l’appel de la méthode Jeu à la fin de la minuterie
             minuterie.Tick += Jeu;
-            // lancement du timer
-            minuterie.Start();
         }
         private void Jeu(object? sender, EventArgs e)
         {
@@ -50,17 +53,26 @@ namespace MotorBikeHighway
         {
             UCChoixMoto uc = new UCChoixMoto();
             ZoneJeu.Content = uc;
+            uc.butJouer.Click += AfficherJeu;
         }
         private void AfficherOptions(object sender, RoutedEventArgs e)
         {
+            minuterie.Stop();
             DialogOptions options = new DialogOptions();
             options.Owner = this;
             options.ShowDialog();
         }
-        private void AfficherJeu(object sender, RoutedEventArgs e)
+        internal void AfficherJeu(object sender, RoutedEventArgs e)
         {
-            //UCJeu uc = new UCJeu();
-            //ZoneJeu.Content = uc;
+            UCJeu uc = new UCJeu();
+            ZoneJeu.Content = uc;
+            uc.butOptions.Click += AfficherOptions;
+            minuterie.Start();
+        }
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Si le jeu n'est pas lancé, on ne fait rien
+
         }
     }
 }

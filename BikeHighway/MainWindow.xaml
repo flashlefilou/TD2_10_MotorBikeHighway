@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="455"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
-        WindowStyle="None">
+        ResizeMode="NoResize">
     <Window.Background>
         <ImageBrush ImageSource="/img/fondBase.png"/>
     </Window.Background>

@@ -19,52 +19,47 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="OPTIONS" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#333" Margin="0,0,0,20"/>
+        <Label Content="OPTIONS" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#333" Margin="0,19,0,200"/>
 
-        <GroupBox Header="Paramètres Audio" Grid.Row="1" Margin="0,0,0,20" Padding="10">
-            <StackPanel>
+        <StackPanel Margin="0,80,0,0">
+            <Label Content="Musique d'ambiance" FontWeight="Bold" Margin="0,0,0,5" HorizontalAlignment="Center"/>
 
-                <TextBlock Text="Musique d'ambiance" FontWeight="Bold" Margin="0,0,0,5"/>
+            <CheckBox x:Name="chkMusique" Content="Activer la musique" IsChecked="True" Checked="ChkMusique_Changed" Unchecked="ChkMusique_Changed" Margin="0,0,0,05"/>
 
-                <CheckBox x:Name="chkMusique" Content="Activer la musique" IsChecked="True" Checked="ChkMusique_Changed" Unchecked="ChkMusique_Changed" Margin="0,0,0,5"/>
+            <Grid Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="35"/>
+                </Grid.ColumnDefinitions>
 
-                <Grid Margin="0,0,0,15">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="35"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Vol :" Grid.Column="0"/>
-                    <Slider x:Name="sliderMusique" Grid.Column="1" Minimum="0" Maximum="100" Value="50" ValueChanged="SliderMusique_ValueChanged" VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding ElementName=sliderMusique, Path=Value, StringFormat={}{0:N0}%}" 
-                               Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                </Grid>
+                <Label Content="Vol :" Grid.Column="0"/>
+                <Slider x:Name="sliderMusique" Grid.Column="1" Minimum="0" Maximum="100" Value="50" ValueChanged="SliderMusique_ValueChanged" VerticalAlignment="Center"/>
+                <Label Content="{Binding ElementName=sliderMusique, Path=Value, StringFormat={}{0:N0}%}" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
 
-                <Separator Margin="0,0,0,10"/>
+            <Label Content="Effets Sonores (Bruitages)" FontWeight="Bold" Margin="0,0,0,5" HorizontalAlignment="Center"/>
 
-                <TextBlock Text="Effets Sonores (Bruitages)" FontWeight="Bold" Margin="0,0,0,5"/>
+            <CheckBox x:Name="chkSFX" Content="Activer les bruitages" IsChecked="True" Checked="ChkSFX_Changed" Unchecked="ChkSFX_Changed" Margin="0,0,0,5"/>
 
-                <CheckBox x:Name="chkSFX" Content="Activer les bruitages" IsChecked="True" Checked="ChkSFX_Changed" Unchecked="ChkSFX_Changed" Margin="0,0,0,5"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="35"/>
+                </Grid.ColumnDefinitions>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="35"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Vol :" Grid.Column="0"/>
-                    <Slider x:Name="sliderSFX" Grid.Column="1" Minimum="0" Maximum="100" Value="80" ValueChanged="SliderSFX_ValueChanged" VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding ElementName=sliderSFX, Path=Value, StringFormat={}{0:N0}%}" 
-                               Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                </Grid>
-
-            </StackPanel>
-        </GroupBox>
+                <Label Content="Vol :" Grid.Column="0"/>
+                <Slider x:Name="sliderSFX" Grid.Column="1" Minimum="0" Maximum="100" Value="80" ValueChanged="SliderSFX_ValueChanged" VerticalAlignment="Center"/>
+                <Label Content="{Binding ElementName=sliderSFX, Path=Value}" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Content="%" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+        </StackPanel>
 
         <StackPanel Grid.Row="2" VerticalAlignment="Top" Margin="0,10,0,0">
             <Button Content="Règles du jeu" Height="45" Click="BtnRegles_Click" Background="#DDDDDD" FontSize="14"/>
         </StackPanel>
 
-        <Button Content="Retour" Grid.Row="3" Height="35" Width="100" Click="BtnFermer_Click" IsCancel="True"/>
+        <Button Content="Retour" Grid.Row="3" Height="35" Width="100" Click="BtnFermer_Click" IsCancel="True" Margin="0,0,0,20"/>
     </Grid>
 </Window>

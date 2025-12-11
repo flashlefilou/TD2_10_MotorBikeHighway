@@ -44,19 +44,21 @@ namespace MotorBikeHighway
             MettreAJourImage();
         }
 
-        
+
         private void MettreAJourBoutons()
         {
             butgauche.IsEnabled = (conteur > 0); // Désactive le bouton gauche si on est sur la première moto
             butdroit.IsEnabled = (conteur < img_Moto.Length - 1); // Désactive le bouton droit si on est sur la dernière moto
         }
-
-        
-        private void MettreAJourImage()
+        public void MettreAJourImage()
         {
             Uri img = new Uri($"pack://application:,,,/img/{img_Moto[conteur]}.png");
             moto[conteur] = new BitmapImage(img);
-            imageMoto.Source = moto[conteur];
+            imageMotoChoix.Source = moto[conteur];
+        }
+        public void butJouer_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Moto = img_Moto[conteur];
         }
     }
 }
