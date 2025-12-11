@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics.Metrics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,6 +23,8 @@ namespace MotorBikeHighway
         {
             InitializeComponent();
             AfficheDemarrage();
+            InitMusique();
+            
         }
         private void AfficheDemarrage()
         {
@@ -55,6 +58,7 @@ namespace MotorBikeHighway
         {
             DialogOptions options = new DialogOptions();
             options.Owner = this;
+            options.main = this;
             options.ShowDialog();
         }
         private void AfficherJeu(object sender, RoutedEventArgs e)
@@ -62,5 +66,24 @@ namespace MotorBikeHighway
             //UCJeu uc = new UCJeu();
             //ZoneJeu.Content = uc;
         }
+        public  MediaPlayer musique;
+
+        public double valeurSon = 50;
+        private void InitMusique()
+        {
+
+            musique = new MediaPlayer();
+            musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "sons/son acceuil.mp3"));
+            musique.MediaEnded += RelanceMusique;
+            musique.Volume = (double)valeurSon / 100;
+            musique.Play();
+        }
+
+        private void RelanceMusique(object? sender, EventArgs e)
+        {
+            musique.Position = TimeSpan.Zero;
+            musique.Play();
+        }
+       
     }
 }

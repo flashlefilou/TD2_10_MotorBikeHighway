@@ -35,7 +35,7 @@
                         <ColumnDefinition Width="35"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Vol :" Grid.Column="0"/>
-                    <Slider x:Name="sliderMusique" Grid.Column="1" Minimum="0" Maximum="100" Value="50" ValueChanged="SliderMusique_ValueChanged" VerticalAlignment="Center"/>
+                    <Slider x:Name="sliderMusique" x:FieldModifier="public"  Grid.Column="1" Minimum="0" Maximum="100" Value="50" ValueChanged="SliderMusique_ValueChanged" VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding ElementName=sliderMusique, Path=Value, StringFormat={}{0:N0}%}" 
                                Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 </Grid>
