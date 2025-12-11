@@ -62,7 +62,6 @@ namespace MotorBikeHighway
             minuterie.Stop();
             DialogOptions options = new DialogOptions();
             options.Owner = this;
-            options.main = this;
             options.ShowDialog();
         }
         internal void AfficherJeu(object sender, RoutedEventArgs e)
@@ -77,9 +76,9 @@ namespace MotorBikeHighway
             // Si le jeu n'est pas lancé, on ne fait rien
 
         }
-        public  MediaPlayer musique;
+        public static MediaPlayer musique;
 
-        public double valeurSon = 50;
+        public static double valeurSon = 50;
         private void InitMusique()
         {
 
@@ -89,11 +88,36 @@ namespace MotorBikeHighway
             musique.Volume = (double)valeurSon / 100;
             musique.Play();
         }
-
+        public static bool aDemarreJeu = false;
+        public static int conteurMusique = 0;
         private void RelanceMusique(object? sender, EventArgs e)
         {
-            musique.Position = TimeSpan.Zero;
-            musique.Play();
+            if (!aDemarreJeu)
+            {
+                musique.Position = TimeSpan.Zero;
+                musique.Play();
+                return;
+            }
+
+            // Si on arrive ici → le joueur a appuyé sur "Jouer"
+            // On peut gérer musique 1 → musique 2
+
+            if (conteurMusique == 0)
+            {
+                conteurMusique++;
+
+                musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
+                                     "sons/retro-retro-synthwave-gaming-music-270173.mp3"));
+                musique.Play();
+                return;
+            }
+
+            // Musique 2 boucle
+            if (conteurMusique >= 1)
+            {
+                musique.Position = TimeSpan.Zero;
+                musique.Play();
+            }
         }
        
     }

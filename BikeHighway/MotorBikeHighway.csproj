@@ -110,6 +110,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="sons\action-racing-speed-music-331470.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="sons\retro-retro-synthwave-gaming-music-270173.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="sons\son acceuil.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
