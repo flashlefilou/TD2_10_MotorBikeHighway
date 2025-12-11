@@ -19,6 +19,7 @@ namespace MotorBikeHighway
     /// </summary>
     public partial class DialogOptions : Window
     {
+        public MainWindow main;
         public DialogOptions()
         {
             InitializeComponent();
@@ -28,20 +29,23 @@ namespace MotorBikeHighway
 
         private void ChkMusique_Changed(object sender, RoutedEventArgs e)
         {
+            if (main?.musique == null) return; // <-- évite le NullReferenceException
+
             if (chkMusique.IsChecked == true)
-            {
-                // TODO: Relancer la musique de fond
-            }
+                main.musique.Play();
             else
-            {
-                // TODO: Arrêter la musique de fond
-            }
+                main.musique.Stop();
         }
 
         private void SliderMusique_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // e.NewValue est entre 0 et 100
+            // Vérifie que main et musique sont initialisés
+            if (main?.musique == null) return;
+
+            // e.NewValue va de 0 à 100, MediaPlayer.Volume attend 0.0 à 1.0
+            main.musique.Volume = e.NewValue / 100.0;
         }
+        
 
         // --- GESTION SFX ---
 
