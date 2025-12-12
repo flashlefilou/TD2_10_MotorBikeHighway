@@ -8,8 +8,28 @@
         Title="MainWindow" Height="700" Width="455"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Window.Background>
-        <ImageBrush ImageSource="/img/fondBase.png"/>
-    </Window.Background>
-    <ContentControl x:Name="ZoneJeu"/>
+    <Grid>
+        <Canvas x:Name="canvasJeu">
+            <Image x:Name="FondBase" Source="/img/fondBase.png" 
+               Height="700" Width="455" Stretch="Fill" 
+               Canvas.Bottom="0"/>
+            <Image x:Name="FondForet" Source="/img/fondForet.png" 
+               Height="700" Width="455" Stretch="Fill" 
+               Canvas.Bottom="700"/>
+            <!--
+            <Image x:Name="FondBase_Neige" Source="/img/FondBase_Neige.png" 
+               Height="700" Width="455" Stretch="Fill" 
+               Canvas.Bottom="1400"/>
+            <Image x:Name="FondNeige" Source="/img/FondNeige.png" 
+               Height="700" Width="455" Stretch="Fill" 
+               Canvas.Bottom="2100"/>
+            <Image x:Name="FondNeige_Base" Source="/img/FondNeige_Base.png" 
+               Height="700" Width="455" Stretch="Fill" 
+               Canvas.Bottom="2800"/>
+            -->
+            <Button Content="Button" Width="20" Height="20" Canvas.Left="72" Canvas.Top="10"/>
+        </Canvas>
+        <ContentControl x:Name="ZoneJeu">
+        </ContentControl>
+    </Grid>
 </Window>

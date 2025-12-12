@@ -21,8 +21,8 @@ namespace MotorBikeHighway
     /// </summary>
     public partial class UCJeu : UserControl
     {
-        private const int LIMITE_GAUCHE = 60;
-        private const int LIMITE_DROITE = 320;
+        private const int LIMITE_GAUCHE = 70;
+        private const int LIMITE_DROITE = 310;
         private const int VITESSE_LATERALE = 15;
         public UCJeu()
         {
@@ -33,6 +33,28 @@ namespace MotorBikeHighway
         {
             Uri img = new Uri($"pack://application:,,,/img/{MainWindow.Moto}.png");
             imgMoto.Source = new BitmapImage(img);
+        }
+        public void DeplaceMotoGauche()
+        {
+            double positionActuelle = Canvas.GetLeft(imgMoto);
+            if (positionActuelle > LIMITE_GAUCHE)
+            {
+                positionActuelle -= VITESSE_LATERALE;
+                Canvas.SetLeft(imgMoto, positionActuelle);
+            }
+        }
+        public void DeplaceMotoDroite()
+        {
+            double positionActuelle = Canvas.GetLeft(imgMoto);
+            if (positionActuelle < LIMITE_DROITE)
+            {
+                positionActuelle += (VITESSE_LATERALE);
+                Canvas.SetLeft(imgMoto, positionActuelle);
+                Console.WriteLine("Test");
+            }
+            else
+            {
+            }
         }
     }
 }

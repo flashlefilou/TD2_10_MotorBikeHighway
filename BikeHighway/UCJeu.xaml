@@ -14,9 +14,8 @@
         </Canvas>
 
         <Canvas x:Name="canvasJeu" Panel.ZIndex="1">
-            <Image x:Name="imgMoto" Source="/img/moto.png" 
-            Width="75" Height="130" 
-            Canvas.Left="190" Canvas.Top="500"/>
+            <Image x:Name="imgMoto" Source="/img/moto.png" Width="75" Height="130" 
+            Canvas.Left="190" Canvas.Top="500"/> 
         </Canvas>
     </Grid>
 </UserControl>

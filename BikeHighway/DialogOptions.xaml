@@ -34,8 +34,9 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Content="Vol :" Grid.Column="0"/>
-                <Slider x:Name="sliderMusique" x:FieldModifier="public" Grid.Column="1" Minimum="0" Maximum="100" Value="50" ValueChanged="SliderMusique_ValueChanged" VerticalAlignment="Center"/>
-                <Label Content="{Binding ElementName=sliderMusique, Path=Value, StringFormat={}{0:N0}%}" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <Slider x:Name="sliderMusique" x:FieldModifier="public" Grid.Column="1" Minimum="0" Maximum="100" Value="50" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="SliderMusique_ValueChanged" VerticalAlignment="Center"/>
+                <Label Content="{Binding ElementName=sliderMusique, Path=Value}" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Content="%" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             </Grid>
 
             <Label Content="Effets Sonores (Bruitages)" FontWeight="Bold" Margin="0,0,0,5" HorizontalAlignment="Center"/>
@@ -50,7 +51,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Content="Vol :" Grid.Column="0"/>
-                <Slider x:Name="sliderSFX" Grid.Column="1" Minimum="0" Maximum="100" Value="80" ValueChanged="SliderSFX_ValueChanged" VerticalAlignment="Center"/>
+                <Slider x:Name="sliderSFX" Grid.Column="1" Minimum="0" Maximum="100" Value="80" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="SliderSFX_ValueChanged" VerticalAlignment="Center"/>
                 <Label Content="{Binding ElementName=sliderSFX, Path=Value}" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <Label Content="%" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             </Grid>

@@ -20,6 +20,7 @@ namespace MotorBikeHighway
     {
         private DispatcherTimer minuterie;
         public static string Moto = "moto";
+        private static int pasFond = 8;
         public MainWindow()
         {
             InitializeComponent();
@@ -27,6 +28,18 @@ namespace MotorBikeHighway
             InitMusique();
             InitializeTimer();
             this.KeyDown += MainWindow_KeyDown;
+        }
+        public void Deplace(Image image, int pas)
+        {
+            double positionActuelle = Canvas.GetBottom(image);
+
+            positionActuelle -= pas;
+            Canvas.SetBottom(image, Canvas.GetBottom(image) - pas);
+
+            if (positionActuelle <= -700) // Si l'image est complètement sortie de l'écran en bas
+                positionActuelle += 1400; ; // remettre en haut
+
+            Canvas.SetBottom(image, positionActuelle);
         }
         private void AfficheDemarrage()
         {
@@ -50,6 +63,12 @@ namespace MotorBikeHighway
         private void Jeu(object? sender, EventArgs e)
         {
             InitializeTimer();
+            Deplace(FondBase, pasFond);
+            Deplace(FondForet, pasFond);
+            //Deplace(FondBase_NeigeRep, pasFond);
+            //Deplace(FondNeigeRep, pasFond);
+            //Deplace(FondNeige_BaseRep, pasFond);
+            
         }
         private void AfficherChoixMoto(object sender, RoutedEventArgs e)
         {
@@ -71,9 +90,19 @@ namespace MotorBikeHighway
             uc.butOptions.Click += AfficherOptions;
             minuterie.Start();
         }
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+
+        public void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            // Si le jeu n'est pas lancé, on ne fait rien
+            if (ZoneJeu.Content is not UCJeu ucJeu)
+                return;
+            else if (e.Key == Key.Left)
+            {
+                ucJeu.DeplaceMotoGauche();
+            }
+            else if (e.Key == Key.Right)
+            {
+                ucJeu.DeplaceMotoDroite();
+            }
 
         }
         public static MediaPlayer musique;
@@ -119,6 +148,19 @@ namespace MotorBikeHighway
                 musique.Play();
             }
         }
-       
+        private bool IsCollision(Image moto, Image vehicule)
+        {
+            double runx = Canvas.GetLeft(moto);
+            double runy = Canvas.GetBottom(moto);
+
+            double cailx = Canvas.GetLeft(vehicule);
+            double caily = Canvas.GetBottom(vehicule);
+            Rect rectangleCaillou = new Rect(cailx, caily, (int)vehicule.Width, (int)vehicule.Height);
+            Rect rectangleRunner = new Rect(runx, runy, (int)moto.Width, (int)moto.Height);
+            Console.WriteLine(rectangleCaillou);
+            Console.WriteLine(rectangleRunner);
+            return rectangleRunner.IntersectsWith(rectangleCaillou);
+        }
+
     }
 }

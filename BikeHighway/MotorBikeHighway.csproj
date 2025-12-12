@@ -17,14 +17,18 @@
 
   <ItemGroup>
     <None Remove="FondAccueil.png" />
+    <None Remove="img\ArrièrePlanSAE101.png" />
     <None Remove="img\biche.png" />
     <None Remove="img\Bonus.png" />
     <None Remove="img\camion.png" />
     <None Remove="img\flaquehuile.png" />
     <None Remove="img\FondAccueil.png" />
     <None Remove="img\FondBase.png" />
+    <None Remove="img\FondBaseRep.png" />
     <None Remove="img\FondBase_neige.png" />
+    <None Remove="img\FondBase_NeigeREP.png" />
     <None Remove="img\FondForet.png" />
+    <None Remove="img\FondForetRep.png" />
     <None Remove="img\FondNeige.png" />
     <None Remove="img\FondNeige_Base.png" />
     <None Remove="img\moto.png" />
