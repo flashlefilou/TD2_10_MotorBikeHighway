@@ -11,7 +11,7 @@
     </UserControl.Background>
     <Grid>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="220">
-            <Button x:Name="butJouer" Content="JOUER" Height="55" FontSize="22" Margin="0,15" Background="#DDDDDD"/>
+            <Button x:Name="butJouer" Content="JOUER" Height="55" FontSize="22" Margin="0,15" Background="#DDDDDD" />
 
             <Button x:Name="butOptions" Content="OPTIONS" Height="55" FontSize="22" Margin="0,15" Background="#DDDDDD" />
 

@@ -11,8 +11,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MotorBikeHighway
 {
@@ -24,15 +26,54 @@ namespace MotorBikeHighway
         private const int LIMITE_GAUCHE = 60;
         private const int LIMITE_DROITE = 320;
         private const int VITESSE_LATERALE = 15;
+        public static int[,,] tabPosition = new int[3, 3, 2];
+        Image[,] images;
+        public static Random random = new Random();
+
         public UCJeu()
         {
             InitializeComponent();
             MettreAJourMotoJeu();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(0.5);  
+            timer.Tick += AfficheVoitureAleatoire;
+            timer.Start();
+            images = new Image[3, 3]
+        {
+            { gVoiture1, gVoiture2, gVoiture3 },
+            { cVoiture1, cVoiture2, cVoiture3 },
+            { dVoiture1, dVoiture2, dVoiture3 }
+        };
+            for (int i = 0; i < tabPosition.GetLength(0); i++) 
+                for (int j = 0; j < tabPosition.GetLength(1); j++)
+                {
+                    tabPosition[i,j, 0] = (int)Canvas.GetLeft(images[i,j]);
+                    tabPosition[i,j, 1] = (int)Canvas.GetTop(images[i,j]);
+                    Console.WriteLine(tabPosition[i, j, 0]);
+                    Console.WriteLine(tabPosition[i, j, 1]);
+                }
+
+            
         }
         public void MettreAJourMotoJeu()
         {
             Uri img = new Uri($"pack://application:,,,/img/{MainWindow.Moto}.png");
             imgMoto.Source = new BitmapImage(img);
+        }
+        public void AfficheVoitureAleatoire(object sender, EventArgs e)
+        {
+            
+            for (int k = 0; k < 3; k++)
+            {
+                int i = random.Next(tabPosition.GetLength(0) );
+                int j = random.Next(tabPosition.GetLength(1) );
+                if (images[i, j].Visibility == Visibility.Visible)
+                    images[i, j].Visibility = Visibility.Hidden;
+                else 
+                    images[i, j].Visibility = Visibility.Visible;
+                Console.WriteLine(i+" "+ j);
+            }
+            
         }
     }
 }

@@ -11,5 +11,9 @@
     <Window.Background>
         <ImageBrush ImageSource="/img/fondBase.png"/>
     </Window.Background>
-    <ContentControl x:Name="ZoneJeu"/>
+    
+    <ContentControl x:Name="ZoneJeu">
+    
+    </ContentControl>
+    
 </Window>
