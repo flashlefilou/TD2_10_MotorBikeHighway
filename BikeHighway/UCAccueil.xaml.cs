@@ -23,12 +23,14 @@ namespace MotorBikeHighway
         public UCAccueil()
         {
             InitializeComponent();
+            UCChoixMoto choix = new UCChoixMoto();
+            butJouer.Click += choix.butJouer_Click;
         }
         private void BtnQuitter_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        
+
     }
 }
