@@ -20,7 +20,7 @@ namespace MotorBikeHighway
     {
         private DispatcherTimer minuterie;
         public static string Moto = "moto";
-        private static int pasFond = 8;
+        public static int pasFond = 8;
         public MainWindow()
         {
             InitializeComponent();
@@ -62,13 +62,15 @@ namespace MotorBikeHighway
         }
         private void Jeu(object? sender, EventArgs e)
         {
-            InitializeTimer();
+            // ne pas réinitialiser la minuterie ici
             Deplace(FondBase, pasFond);
             Deplace(FondForet, pasFond);
-            //Deplace(FondBase_NeigeRep, pasFond);
-            //Deplace(FondNeigeRep, pasFond);
-            //Deplace(FondNeige_BaseRep, pasFond);
-            
+
+            if (ZoneJeu.Content is UCJeu ucJeu)
+            {
+                ucJeu.DeplacerVoitures(pasFond);
+            }
+
         }
         private void AfficherChoixMoto(object sender, RoutedEventArgs e)
         {
@@ -83,7 +85,7 @@ namespace MotorBikeHighway
             options.Owner = this;
             options.ShowDialog();
         }
-        internal void AfficherJeu(object sender, RoutedEventArgs e)
+        public void AfficherJeu(object sender, RoutedEventArgs e)
         {
             UCJeu uc = new UCJeu();
             ZoneJeu.Content = uc;

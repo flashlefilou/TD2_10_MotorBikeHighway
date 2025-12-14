@@ -29,7 +29,7 @@ namespace MotorBikeHighway
 
         private void ChkMusique_Changed(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.musique == null) return; // <-- évite le NullReferenceException
+            if (MainWindow.musique == null) return; 
 
             if (chkMusique.IsChecked == true)
                 MainWindow.musique.Play();
@@ -51,20 +51,10 @@ namespace MotorBikeHighway
 
         private void ChkSFX_Changed(object sender, RoutedEventArgs e)
         {
-            if (chkSFX.IsChecked == true)
-            {
-                // TODO: Autoriser les SFX
-            }
-            else
-            {
-                // TODO: Interdire les SFX
-            }
         }
 
         private void SliderSFX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // e.NewValue est entre 0 et 100
-            // TODO: Appliquer aux SFX
         }
 
         // --- NAVIGATION ---
