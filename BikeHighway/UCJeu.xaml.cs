@@ -10,6 +10,7 @@ namespace MotorBikeHighway
 {
     public partial class UCJeu : UserControl
     {
+        
         private const int LIMITE_GAUCHE = 70;
         private const int LIMITE_DROITE = 310;
         private const int VITESSE_LATERALE = 15;
@@ -57,13 +58,36 @@ namespace MotorBikeHighway
             canvasJeu.Children.Add(r);
             return r;
         }
+
         private void AfficherRejouer()
         {
+            MainWindow main = Application.Current.MainWindow as MainWindow;
             MainWindow.minuterie.Stop();
+            MainWindow.minuterieOil.Stop();
+            
             DialogRejouer rejouer = new DialogRejouer();
+            rejouer.lbScoreActuel.Content = MainWindow.score;
+            MainWindow.TableScore.Add(MainWindow.score);
+            Console.WriteLine(MainWindow.TableScore[MainWindow.TableScore.Count - 1]);
+            rejouer.lbMeilleurScoreAffichage.Content = MainWindow.TableScore.Max();
+            rejouer.Owner = main;
+
+            // ATTENTION : on utilise une lambda pour passer le paramètre
+            rejouer.butRejouer.Click += (s, e) => ActionButRejouer(rejouer, s, e);
+            rejouer.butAccueil.Click += (s, e) => main.AfficheDemarrage();
+            rejouer.butAccueil.Click += (s, e) => MainWindow.musique.Stop();
+            rejouer.butAccueil.Click += (s, e) => main.InitMusique();
+            rejouer.butAccueil.Click += (s, e) => rejouer.Close();
+            
             rejouer.ShowDialog();
         }
 
+        private void ActionButRejouer(DialogRejouer rejouer, object sender, RoutedEventArgs e)
+        {
+            MainWindow main = Application.Current.MainWindow as MainWindow;
+            rejouer.Close();          // ferme le dialogue
+            main.AfficherJeu(sender, e); // relance le jeu
+        }
         private void MasquerToutesVoitures()
         {
             for (int i = 0; i < 3; i++)
