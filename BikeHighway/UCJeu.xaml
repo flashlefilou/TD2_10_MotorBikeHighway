@@ -11,22 +11,22 @@
             <TextBlock x:Name="txtScore" Text="Score : " FontSize="20" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Canvas.Left="25" Canvas.Top="10" VerticalAlignment="Center"/>
             <TextBlock x:Name="txtVies" Text="Vies : 1" FontSize="20" FontWeight="Bold" Foreground="Black" Margin="150,10,10,10"/>
             <Button x:Name="butOptions" Content="Options" Margin="15" Canvas.Right="0"/>
-            <Image x:Name="dVoiture3" Height="152" Canvas.Left="275" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-189" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Image x:Name="dVoiture2" Height="152" Canvas.Left="275" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-426" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Image x:Name="dVoiture1" Height="152" Canvas.Left="275" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-665" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Image x:Name="cVoiture3" Height="152" Canvas.Left="168" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-189" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Image x:Name="cVoiture2" Height="152" Canvas.Left="168" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-426" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Image x:Name="cVoiture1" Height="152" Canvas.Left="168" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-665" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
-            <Image x:Name="gVoiture3" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-189" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
-            <Image x:Name="gVoiture2" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-426" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
-            <Image x:Name="gVoiture1" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-665" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
+            <Image x:Name="dVoiture3" Height="152" Canvas.Left="275" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="518" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
+            <Image x:Name="dVoiture2" Height="152" Canvas.Left="275" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="281" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
+            <Image x:Name="dVoiture1" Height="152" Canvas.Left="275" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="42" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
+            <Image x:Name="cVoiture3" Height="152" Canvas.Left="168" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="518" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
+            <Image x:Name="cVoiture2" Height="152" Canvas.Left="168" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="281" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
+            <Image x:Name="cVoiture1" Height="152" Canvas.Left="168" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="42" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
+            <Image x:Name="gVoiture3" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="518" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
+            <Image x:Name="gVoiture2" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="281" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
+            <Image x:Name="gVoiture1" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="42" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
             <TextBlock x:Name="txtScore_Copy" FontSize="20" FontWeight="Bold" Foreground="Black" Canvas.Left="93" Canvas.Top="55" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label x:Name="lbScore" Content="" Height="24" Canvas.Left="91" Canvas.Top="11" Width="26"/>
         </Canvas>
 
         <Canvas x:Name="canvasJeu" Panel.ZIndex="1">
             <Image x:Name="imgMoto" Source="/img/moto.png" Width="75" Height="130" 
-            Canvas.Left="190" Canvas.Top="500"/>
+            Canvas.Left="190" Canvas.Bottom="42"/>
         </Canvas>
     </Grid>
 </UserControl>

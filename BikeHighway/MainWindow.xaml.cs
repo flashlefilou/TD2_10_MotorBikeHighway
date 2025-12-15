@@ -54,7 +54,7 @@ namespace MotorBikeHighway
 
 
         // -- INITIALISATION DE LA MINUTERIE --
-        private void InitializeTimer()
+        public void InitializeTimer()
         {
             minuterie = new DispatcherTimer();
             // configure l'intervalle du Timer :62 images par s
@@ -82,7 +82,6 @@ namespace MotorBikeHighway
 
         private void Jeu(object? sender, EventArgs e)
         {
-            // ne pas réinitialiser la minuterie ici
             Deplace(FondBase, pasFond);
             Deplace(FondForet, pasFond);
             Deplace(oil, pasFond);
@@ -155,9 +154,6 @@ namespace MotorBikeHighway
                 return;
             }
 
-            // Si on arrive ici → le joueur a appuyé sur "Jouer"
-            // On peut gérer musique 1 → musique 2
-
             if (conteurMusique == 0)
             {
                 conteurMusique++;
@@ -175,17 +171,5 @@ namespace MotorBikeHighway
                 musique.Play();
             }
         }
-        private bool IsCollision(Image moto, Rect vehicule)
-        {
-            double runx = Canvas.GetLeft(moto);
-            double runy = Canvas.GetBottom(moto);
-
-            
-            Rect rectangleMoto = new Rect(runx, runy, (int)moto.Width, (int)moto.Height);
-            Console.WriteLine(rectangleMoto);
-            return rectangleMoto.IntersectsWith(vehicule);
-        }
-        
-
     }
 }
