@@ -10,11 +10,13 @@
         ResizeMode="NoResize">
     <Grid>
         <Button x:Name="butAccueil" Content="Accueil" HorizontalAlignment="Center" Margin="0,419,0,0" VerticalAlignment="Top" Width="156" FontSize="24"/>
-        <Button x:Name="butJouer" Content="Rejouer" HorizontalAlignment="Center" Margin="0,364,0,0" VerticalAlignment="Top" Width="156" FontSize="24"/>
+        <Button x:Name="butRejouer" Content="Rejouer" HorizontalAlignment="Center" Margin="0,364,0,0" VerticalAlignment="Top" Width="156" FontSize="24" />
         <Label Content="Score :" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" FontFamily="Bernard MT Condensed" FontSize="24" Width="85"/>
-        <Label Content="Meilleur score :" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" FontFamily="Bernard MT Condensed" FontSize="16" Height="25" Width="112"/>
+        <Label Content="Meilleur score :" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" FontFamily="Bernard MT Condensed" FontSize="16" Height="30" Width="112"/>
         <Label x:Name="lbMeilleurScore" Content="" HorizontalAlignment="Left" Margin="110,32,0,0" VerticalAlignment="Top" Height="36" Width="45"/>
         <Label x:Name="lbScore" Content="" HorizontalAlignment="Left" Margin="82,65,0,0" VerticalAlignment="Top" Height="36" Width="45"/>
+        <Label x:Name="lbScoreActuel" Content="" HorizontalAlignment="Left" Margin="76,59,0,0" VerticalAlignment="Top" FontFamily="Bernard MT Condensed" FontSize="24" Width="34"/>
+        <Label x:Name="lbMeilleurScoreAffichage" Content="" HorizontalAlignment="Left" Margin="110,26,0,0" VerticalAlignment="Top" FontFamily="Bernard MT Condensed" FontSize="24" Width="34"/>
 
     </Grid>
 </Window>

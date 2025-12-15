@@ -24,6 +24,7 @@ namespace MotorBikeHighway
         public static int pasFond = 8;
         public static int score = 0;
         public static int vies = 2;
+        public static List<int> TableScore = new List<int>();
         public MainWindow()
         {
             InitializeComponent();
@@ -44,7 +45,7 @@ namespace MotorBikeHighway
 
             Canvas.SetBottom(image, positionActuelle);
         }
-        private void AfficheDemarrage()
+        public void AfficheDemarrage()
         {
             UCAccueil uc = new UCAccueil();
             ZoneJeu.Content = uc;
@@ -95,7 +96,7 @@ namespace MotorBikeHighway
             ZoneJeu.Content = uc;
             uc.butJouer.Click += AfficherJeu;
         }
-        private void AfficherOptions(object sender, RoutedEventArgs e)
+        public  void AfficherOptions(object sender, RoutedEventArgs e)
         {
             minuterie.Stop();
             DialogOptions options = new DialogOptions();
@@ -104,13 +105,18 @@ namespace MotorBikeHighway
         }
         public void AfficherJeu(object sender, RoutedEventArgs e)
         {
+            score = 0;
             UCJeu uc = new UCJeu();
             ZoneJeu.Content = uc;
             uc.butOptions.Click += AfficherOptions;
             minuterie.Start();
             minuterieOil.Start();
             uc.lbScore.Content = score;
-    }
+            this.Focusable = true;
+            this.Focus();
+        }
+
+
         public void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (ZoneJeu.Content is not UCJeu ucJeu)
@@ -128,7 +134,7 @@ namespace MotorBikeHighway
         public static MediaPlayer musique;
 
         public static double valeurSon = 50;
-        private void InitMusique()
+        public void InitMusique()
         {
 
             musique = new MediaPlayer();
