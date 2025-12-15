@@ -18,9 +18,11 @@ namespace MotorBikeHighway
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DispatcherTimer minuterie;
+        public static DispatcherTimer minuterie;
+        public static DispatcherTimer minuterieOil;
         public static string Moto = "moto";
         public static int pasFond = 8;
+        public static int score = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -49,7 +51,7 @@ namespace MotorBikeHighway
             uc.butOptions.Click += AfficherOptions;
             uc.butJouer.Click += AfficherJeu;
         }
-        
+
 
         // -- INITIALISATION DE LA MINUTERIE --
         private void InitializeTimer()
@@ -59,16 +61,36 @@ namespace MotorBikeHighway
             minuterie.Interval = TimeSpan.FromMilliseconds(16);
             // associe l’appel de la méthode Jeu à la fin de la minuterie
             minuterie.Tick += Jeu;
+            minuterieOil = new DispatcherTimer();
+            minuterieOil.Interval = TimeSpan.FromSeconds(2);
+            minuterieOil.Tick += AfficheTacheOil;
+
         }
+        public Image oil;
+        private async void AfficheTacheOil(object? sender, EventArgs e)
+        {
+            oil = new Image();
+            Random rand = new Random();
+            Uri img = new Uri($"pack://application:,,,/img/oil_top_down.png");
+            oil.Source = new BitmapImage(img);
+            oil.Width = 50;
+            oil.Height = 50;
+            Canvas.SetLeft(oil, rand.Next(700));
+            Canvas.SetTop(oil, rand.Next(450));
+            canvasJeu.Children.Add(oil);
+        }
+
         private void Jeu(object? sender, EventArgs e)
         {
             // ne pas réinitialiser la minuterie ici
             Deplace(FondBase, pasFond);
             Deplace(FondForet, pasFond);
+            Deplace(oil, pasFond);
 
             if (ZoneJeu.Content is UCJeu ucJeu)
             {
                 ucJeu.DeplacerVoitures(pasFond);
+                ucJeu.lbScore.Content = score;
             }
 
         }
@@ -91,7 +113,10 @@ namespace MotorBikeHighway
             ZoneJeu.Content = uc;
             uc.butOptions.Click += AfficherOptions;
             minuterie.Start();
-        }
+            minuterieOil.Start();
+            uc.lbScore.Content = score;
+    }
+
 
         public void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
@@ -150,19 +175,17 @@ namespace MotorBikeHighway
                 musique.Play();
             }
         }
-        private bool IsCollision(Image moto, Image vehicule)
+        private bool IsCollision(Image moto, Rect vehicule)
         {
             double runx = Canvas.GetLeft(moto);
             double runy = Canvas.GetBottom(moto);
 
-            double cailx = Canvas.GetLeft(vehicule);
-            double caily = Canvas.GetBottom(vehicule);
-            Rect rectangleCaillou = new Rect(cailx, caily, (int)vehicule.Width, (int)vehicule.Height);
-            Rect rectangleRunner = new Rect(runx, runy, (int)moto.Width, (int)moto.Height);
-            Console.WriteLine(rectangleCaillou);
-            Console.WriteLine(rectangleRunner);
-            return rectangleRunner.IntersectsWith(rectangleCaillou);
+            
+            Rect rectangleMoto = new Rect(runx, runy, (int)moto.Width, (int)moto.Height);
+            Console.WriteLine(rectangleMoto);
+            return rectangleMoto.IntersectsWith(vehicule);
         }
+        
 
     }
 }

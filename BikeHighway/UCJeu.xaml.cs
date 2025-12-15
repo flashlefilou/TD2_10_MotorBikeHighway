@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MotorBikeHighway
 {
@@ -94,6 +95,7 @@ namespace MotorBikeHighway
 
         public void DeplacerVoitures(int pas)
         {
+            
             foreach (var v in voituresActives)
             {
                 if (v == null) continue;
@@ -112,8 +114,15 @@ namespace MotorBikeHighway
                     Canvas.SetBottom(v, WINDOW_HEIGHT + random.Next(150, 800));
                     int lane = random.Next(0, laneLefts.Length);
                     Canvas.SetLeft(v, laneLefts[lane]);
+                    MainWindow.score++;
+
                 }
+
+                
+                
             }
+            
         }
+        
     }
 }

@@ -8,7 +8,7 @@
              d:DesignHeight="700" d:DesignWidth="455">
     <Grid>
         <Canvas x:Name="canvasJeu1" Panel.ZIndex="2">
-            <TextBlock x:Name="txtScore" Text="Score : 0" FontSize="20" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Canvas.Left="25" Canvas.Top="10" VerticalAlignment="Center"/>
+            <TextBlock x:Name="txtScore" Text="Score : " FontSize="20" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" Canvas.Left="25" Canvas.Top="10" VerticalAlignment="Center"/>
             <TextBlock x:Name="txtVies" Text="Vies : 1" FontSize="20" FontWeight="Bold" Foreground="Black" Margin="150,10,10,10"/>
             <Button x:Name="butOptions" Content="Options" Margin="15" Canvas.Right="0"/>
             <Image x:Name="dVoiture3" Height="152" Canvas.Left="275" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-189" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
@@ -20,11 +20,13 @@
             <Image x:Name="gVoiture3" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-189" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
             <Image x:Name="gVoiture2" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-426" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
             <Image x:Name="gVoiture1" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="-665" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
+            <TextBlock x:Name="txtScore_Copy" FontSize="20" FontWeight="Bold" Foreground="Black" Canvas.Left="93" Canvas.Top="55" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label x:Name="lbScore" Content="" Height="24" Canvas.Left="91" Canvas.Top="11" Width="26"/>
         </Canvas>
 
         <Canvas x:Name="canvasJeu" Panel.ZIndex="1">
             <Image x:Name="imgMoto" Source="/img/moto.png" Width="75" Height="130" 
-            Canvas.Left="190" Canvas.Top="500"/> 
+            Canvas.Left="190" Canvas.Top="500"/>
         </Canvas>
     </Grid>
 </UserControl>

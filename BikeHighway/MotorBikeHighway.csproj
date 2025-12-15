@@ -41,6 +41,7 @@
     <None Remove="img\moto_right.png" />
     <None Remove="img\moto_right_blue.png" />
     <None Remove="img\moto_right_pink.png" />
+    <None Remove="img\oil_top_down.png" />
     <None Remove="img\voiture.png" />
   </ItemGroup>
 
@@ -106,6 +107,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\moto_right_pink.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\oil_top_down.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\voiture.png">
