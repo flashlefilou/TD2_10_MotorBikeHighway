@@ -27,7 +27,6 @@
                Height="700" Width="455" Stretch="Fill" 
                Canvas.Bottom="2800"/>
             -->
-            <Button Content="Button" Width="20" Height="20" Canvas.Left="72" Canvas.Top="10"/>
         </Canvas>
         <ContentControl x:Name="ZoneJeu">
         </ContentControl>

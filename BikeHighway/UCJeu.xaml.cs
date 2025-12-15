@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using System.Windows.Media;
 
 namespace MotorBikeHighway
 {
@@ -12,6 +14,11 @@ namespace MotorBikeHighway
         private const int VITESSE_LATERALE = 15;
         private const double WINDOW_HEIGHT = 700.0;
         public static Random random = new Random();
+
+        private Rectangle debugRectMoto;
+        private Rectangle debugRectVehicule;
+
+        public 
 
         Image[,] images;
         private Image[] voituresActives = new Image[3];
@@ -33,9 +40,27 @@ namespace MotorBikeHighway
             laneLefts[0] = Canvas.GetLeft(images[0, 0]);
             laneLefts[1] = Canvas.GetLeft(images[1, 0]);
             laneLefts[2] = Canvas.GetLeft(images[2, 0]);
-
-            MasquerToutesVoitures();
             InitialiserTroisVoitures();
+            debugRectMoto = CreerRectangleDebug(Colors.LimeGreen);
+            debugRectVehicule = CreerRectangleDebug(Colors.Red);  
+        }
+        private Rectangle CreerRectangleDebug(Color couleur)
+        {
+            Rectangle r = new Rectangle();
+            r.Stroke = new SolidColorBrush(couleur);
+            r.StrokeThickness = 2;
+            r.Fill = Brushes.Transparent;
+
+
+            Panel.SetZIndex(r, 99);
+            canvasJeu.Children.Add(r);
+            return r;
+        }
+        private void AfficherRejouer()
+        {
+            MainWindow.minuterie.Stop();
+            DialogRejouer rejouer = new DialogRejouer();
+            rejouer.ShowDialog();
         }
 
         private void MasquerToutesVoitures()
@@ -44,34 +69,6 @@ namespace MotorBikeHighway
                 for (int j = 0; j < 3; j++)
                     images[i, j].Visibility = Visibility.Hidden;
         }
-
-        private void InitialiserTroisVoitures()
-        {
-            voituresActives[0] = images[0, 0];
-            voituresActives[1] = images[1, 0];
-            voituresActives[2] = images[2, 0];
-
-            int[] lanes = { 0, 1, 2 };
-            for (int i = 0; i < lanes.Length; i++)
-            {
-                int idx = random.Next(i, lanes.Length);
-                int tmp = lanes[i]; lanes[i] = lanes[idx]; lanes[idx] = tmp;
-            }
-
-            for (int k = 0; k < 3; k++)
-            {
-                Image v = voituresActives[k];
-                int lane = lanes[k];
-
-                // IMPORTANT : effacer Canvas.Top défini en XAML pour que Bottom soit pris en compte
-                v.ClearValue(Canvas.TopProperty);
-
-                Canvas.SetLeft(v, laneLefts[lane]);
-                Canvas.SetBottom(v, WINDOW_HEIGHT + random.Next(100, 600));
-                v.Visibility = Visibility.Visible;
-            }
-        }
-
         public void MettreAJourMotoJeu()
         {
             Uri img = new Uri($"pack://application:,,,/img/{MainWindow.Moto}.png");
@@ -91,29 +88,100 @@ namespace MotorBikeHighway
             if (positionActuelle < LIMITE_DROITE)
                 Canvas.SetLeft(imgMoto, positionActuelle + VITESSE_LATERALE);
         }
+        private void InitialiserTroisVoitures()
+        {
+            MasquerToutesVoitures();
+
+            for (int col = 0; col < 3; col++)
+            {
+                int ligneAleatoire = random.Next(0, 3);
+                Image voitureChoisie = images[col, ligneAleatoire];
+
+                voitureChoisie.Visibility = Visibility.Visible;
+
+                voitureChoisie.ClearValue(Canvas.TopProperty);
+
+                double depart = 200 + (col * 400);
+                Canvas.SetBottom(voitureChoisie, depart);
+            }
+        }
 
         public void DeplacerVoitures(int pas)
         {
-            foreach (var v in voituresActives)
+            // parcourt les 3 colonnes
+            for (int col = 0; col < 3; col++)
             {
-                if (v == null) continue;
-
-                // s'assurer que Top n'interfère pas
-                v.ClearValue(Canvas.TopProperty);
-
-                double bottom = Canvas.GetBottom(v);
-                // si Bottom n'était pas défini (NaN), on le initialise
-                if (double.IsNaN(bottom)) bottom = WINDOW_HEIGHT + random.Next(100, 600);
-                bottom -= pas;
-                Canvas.SetBottom(v, bottom);
-
-                if (bottom <= -v.Height)
+                // cherche voiture visible dns la colonne
+                Image voitureActive = null;
+                for (int row = 0; row < 3; row++)
                 {
-                    Canvas.SetBottom(v, WINDOW_HEIGHT + random.Next(150, 800));
-                    int lane = random.Next(0, laneLefts.Length);
-                    Canvas.SetLeft(v, laneLefts[lane]);
+                    if (images[col, row].Visibility == Visibility.Visible)
+                    {
+                        voitureActive = images[col, row];
+                        break;
+                    }
+                }
+
+                // Si on a trouvé une voiture active
+                if (voitureActive != null)
+                {
+                    voitureActive.ClearValue(Canvas.TopProperty);
+                    
+                    double bottomActive = Canvas.GetBottom(voitureActive) - pas;
+                    // déplacement
+                    Canvas.SetBottom(voitureActive, bottomActive);
+                    // sortie de l'ecran ?
+                    if (bottomActive <= -voitureActive.Height)
+                    {
+                        // cacher l'ancienne voiture
+                        voitureActive.Visibility = Visibility.Hidden;
+
+                        // nouvelle voiture
+                        Image nouvelleVoiture = images[col, random.Next(0, 3)];
+
+                        nouvelleVoiture.ClearValue(Canvas.TopProperty);
+                        Canvas.SetBottom(nouvelleVoiture, bottomActive + 1400);
+
+                        // Rendre visible la nouvelle voiture
+                        nouvelleVoiture.Visibility = Visibility.Visible;
+                    }
+                }
+                if (IsCollision(imgMoto, voitureActive))
+                {
+                    MainWindow.minuterie.Stop();
+                    AfficherRejouer();
                 }
             }
+        }
+        private bool IsCollision(Image moto, Image vehicule)
+        {
+            double motox = Canvas.GetLeft(moto);
+            double motoy = Canvas.GetBottom(moto);
+
+            double vehx = Canvas.GetLeft(vehicule);
+            double vehy = Canvas.GetBottom(vehicule);
+            Rect rectangleVehicule = new Rect(vehx + 35, vehy +15, (int)vehicule.Width - 70, (int)vehicule.Height - 25);
+            Rect rectangleMoto = new Rect(motox + 20, motoy + 10, (int)moto.Width - 40, (int)moto.Height - 25);
+
+
+            // ================
+            // HITBOX VISIBLE 
+            // ================
+
+            debugRectMoto.Width = rectangleMoto.Width;
+            debugRectMoto.Height = rectangleMoto.Height;
+            Canvas.SetLeft(debugRectMoto, rectangleMoto.X);  
+
+            debugRectMoto.ClearValue(Canvas.TopProperty);
+            Canvas.SetBottom(debugRectMoto, rectangleMoto.Y); 
+
+            debugRectVehicule.Width = rectangleVehicule.Width;
+            debugRectVehicule.Height = rectangleVehicule.Height;
+            Canvas.SetLeft(debugRectVehicule, rectangleVehicule.X); 
+            debugRectVehicule.ClearValue(Canvas.TopProperty);
+            Canvas.SetBottom(debugRectVehicule, rectangleVehicule.Y); 
+
+            return rectangleMoto.IntersectsWith(rectangleVehicule);
         }
     }
 }
