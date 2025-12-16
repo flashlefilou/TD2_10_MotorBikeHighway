@@ -18,12 +18,19 @@ namespace MotorBikeHighway
     /// </summary>
     public partial class MainWindow : Window
     {
+        public const int SCORE_BASE = 0;
+        public const int VIES_BASE = 1;
+
+        // -- STATIQUES MINUTERIES --
         public static DispatcherTimer minuterie;
         public static DispatcherTimer minuterieOil;
+        public static DispatcherTimer minuterieVitesse;
+
+        // -- VARIABLES STATIQUES --
         public static string Moto = "moto";
         public static int pasFond = 8;
         public static int score = 0;
-        public static int vies = 2;
+        public static int vies = 1;
         public static List<int> TableScore = new List<int>();
         public MainWindow()
         {
@@ -59,21 +66,36 @@ namespace MotorBikeHighway
         public void InitializeTimer()
         {
             minuterie = new DispatcherTimer();
-            // configure l'intervalle du Timer :62 images par s
+            // configure l'intervalle du Timer : 62 images par s
             minuterie.Interval = TimeSpan.FromMilliseconds(16);
             // associe l’appel de la méthode Jeu à la fin de la minuterie
             minuterie.Tick += Jeu;
+
+
             minuterieOil = new DispatcherTimer();
+            // configure l'intervalle du Timer huile : 1 flaque toute les 10 secondes
             minuterieOil.Interval = TimeSpan.FromSeconds(10);
             minuterieOil.Tick += DeclencherHuile;
+
+            minuterieVitesse = new DispatcherTimer();
+            // configure l'intervalle du Timer huile : vitesse augmente toute les 8 secondes
+            minuterieVitesse.Interval = TimeSpan.FromSeconds(8);
+            minuterieVitesse.Tick += AugmenterVitesse;
         }
         private void DeclencherHuile(object? sender, EventArgs e)
         {
-            // On vérifie s'il y a bien un jeu en cours
+            // Lien entre UCJeu (AfficheTacheOil) et MainWindow 
             if (ZoneJeu.Content is UCJeu monJeu)
             {
-                // On appelle la méthode sur l'instance réelle du jeu
                 monJeu.AfficheTacheOil();
+            }
+        }
+        private void AugmenterVitesse(object? sender, EventArgs e)
+        {
+            if (pasFond < 25)
+            {
+                pasFond += 1;
+                Console.WriteLine("Vitesse augmentée : " + pasFond);
             }
         }
         private void Jeu(object? sender, EventArgs e)
@@ -83,7 +105,28 @@ namespace MotorBikeHighway
 
             if (ZoneJeu.Content is UCJeu ucJeu)
             {
-                Deplace(ucJeu.tacheHuile, pasFond);
+                Image oil = ucJeu.tacheHuile;
+
+                if (oil.Visibility == Visibility.Visible)
+                {
+                    double positionActuelle = Canvas.GetBottom(oil);
+                    positionActuelle -= pasFond;
+
+                    // Si l'huile sort de l'ecran
+                    if (positionActuelle <= -oil.Height)
+                    {
+                        // On la cache et on ARRETE de la boucler.
+                        // Elle ne réapparaîtra que quand "minuterieOil" déclenchera "AfficheTacheOil"
+                        oil.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        // Sinon, on la déplace
+                        Canvas.SetBottom(oil, positionActuelle);
+                    }
+                }
+                ucJeu.VerifierCollisionHuile();
+
                 ucJeu.DeplacerVoitures(pasFond);
                 ucJeu.lbScore.Content = score;
                 ucJeu.lbVies.Content = vies;
@@ -98,19 +141,27 @@ namespace MotorBikeHighway
         }
         public  void AfficherOptions(object sender, RoutedEventArgs e)
         {
-            minuterie.Stop();
+            minuterie.Stop(); // pause du jeu
+            minuterieVitesse.Stop(); // pause de l'accélération
+
             DialogOptions options = new DialogOptions();
             options.Owner = this;
             options.ShowDialog();
         }
         public void AfficherJeu(object sender, RoutedEventArgs e)
         {
-            score = 0;
+            score = SCORE_BASE;
+
+            pasFond = 8; // réinitialise la vitesse du fond
+
             UCJeu uc = new UCJeu();
             ZoneJeu.Content = uc;
             uc.butOptions.Click += AfficherOptions;
-            minuterie.Start();
-            minuterieOil.Start();
+
+            minuterie.Start(); // démarrer la minuterie pour Jeu
+            minuterieOil.Start(); // démarrer la minuterie pour Huile
+            minuterieVitesse.Start(); // démarrer la minuterie pour Vitesse
+
             uc.lbScore.Content = score;
             this.Focusable = true;
             this.Focus();
@@ -158,8 +209,7 @@ namespace MotorBikeHighway
             {
                 conteurMusique++;
 
-                musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
-                                     "sons/retro-retro-synthwave-gaming-music-270173.mp3"));
+                musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "sons/retro-retro-synthwave-gaming-music-270173.mp3"));
                 musique.Play();
                 return;
             }

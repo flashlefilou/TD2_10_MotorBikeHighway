@@ -69,6 +69,8 @@ namespace MotorBikeHighway
         private void BtnFermer_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            MainWindow.minuterie.Start();
+            MainWindow.minuterieVitesse.Start();
         }
     }
 }

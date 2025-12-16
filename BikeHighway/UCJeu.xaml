@@ -20,13 +20,13 @@
             <Image x:Name="gVoiture3" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="518" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
             <Image x:Name="gVoiture2" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="281" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
             <Image x:Name="gVoiture1" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="42" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
-            <Image x:Name="oil" Source="/img/oil_top_down.png" Stretch="Fill" Width="50" Height="50" Canvas.Bottom="1000" Canvas.Left="190"/>
+            <Image x:Name="oil" Source="/img/oil_top_down.png" Stretch="Fill" Width="50" Height="50" Canvas.Bottom="1000" Canvas.Left="190" Panel.ZIndex="1"/>
             <TextBlock x:Name="txtScore_Copy" FontSize="20" FontWeight="Bold" Foreground="Black" Canvas.Left="93" Canvas.Top="55" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label x:Name="lbScore" Content="" FontSize="20" FontWeight="Bold" Canvas.Left="90" Canvas.Top="5"/>
             <Label x:Name="lbVies" Content=""  FontSize="20" FontWeight="Bold" Canvas.Left="205" Canvas.Top="5"/>
         </Canvas>
 
-        <Canvas x:Name="canvasJeu" Panel.ZIndex="1">
+        <Canvas x:Name="canvasJeu" Panel.ZIndex="3">
             <Image x:Name="imgMoto" Source="/img/moto.png" Width="75" Height="130" 
             Canvas.Left="190" Canvas.Bottom="42"/>
         </Canvas>

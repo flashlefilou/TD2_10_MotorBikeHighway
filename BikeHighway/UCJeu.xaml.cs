@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Media;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace MotorBikeHighway
@@ -15,14 +16,17 @@ namespace MotorBikeHighway
         private const int LIMITE_DROITE = 310;
         private const int VITESSE_LATERALE = 15;
         private const double WINDOW_HEIGHT = 700.0;
+        private const int NOUVELLE_POSITION_HUILE = 800;
+        private const int TOURS_ANIMATION_HUILE = 720;
         public static Random random = new Random();
 
         private Rectangle debugRectMoto;
         private Rectangle debugRectVehicule;
 
         Image[,] images;
-        private Image[] voituresActives = new Image[3];
         private double[] laneLefts = new double[3];
+        private double dernierX = -999;
+        private bool controleBloque = false;
 
         public UCJeu()
         {
@@ -42,7 +46,14 @@ namespace MotorBikeHighway
             laneLefts[2] = Canvas.GetLeft(images[2, 0]);
             InitialiserTroisVoitures();
             debugRectMoto = CreerRectangleDebug(Colors.LimeGreen);
-            debugRectVehicule = CreerRectangleDebug(Colors.Red);  
+            debugRectVehicule = CreerRectangleDebug(Colors.Red);
+
+
+            // point de pivot de la moto au centre de l'image
+            imgMoto.RenderTransformOrigin = new Point(0.5, 0.5);
+            // preparation de la rotation
+            RotateTransform rt = new RotateTransform();
+            imgMoto.RenderTransform = rt;
         }
         private Rectangle CreerRectangleDebug(Color couleur)
         {
@@ -58,18 +69,74 @@ namespace MotorBikeHighway
         }
         public void AfficheTacheOil()
         {
-            Random rand = new Random();
-            Canvas.SetLeft(oil, rand.Next(95, 315));
-            Canvas.SetBottom(oil, rand.Next(800, 1000));
+            double nouveauX;
+
+            // position trop proche de la précédente => nouvelle position
+            do
+            {
+                nouveauX = random.Next(95, 315);
+            }
+            while (Math.Abs(nouveauX - dernierX) < 50);
+
+            // sauvegarde de cette position
+            dernierX = nouveauX;
+
+            Canvas.SetLeft(oil, nouveauX);
+
+            Canvas.SetBottom(oil, NOUVELLE_POSITION_HUILE);
 
             oil.Visibility = Visibility.Visible;
+        }
+        public void VerifierCollisionHuile()
+        {
+            // 1. Si on glisse déjà ou si l'huile est cachée, on ne vérifie pas
+            if (controleBloque || oil.Visibility != Visibility.Visible) return;
+
+            // 2. Vérification simple de collision (Rect)
+            Rect rectMoto = new Rect(Canvas.GetLeft(imgMoto), Canvas.GetBottom(imgMoto), imgMoto.Width, imgMoto.Height);
+            Rect rectOil = new Rect(Canvas.GetLeft(oil), Canvas.GetBottom(oil), oil.Width, oil.Height);
+
+            // On réduit un peu la zone de collision de l'huile pour être gentil (Hitbox permissive)
+            rectOil.Inflate(-10, -10);
+
+            if (rectMoto.IntersectsWith(rectOil))
+            {
+                DeclencherGlissade();
+            }
+        }
+        private void DeclencherGlissade()
+        {
+            // bloque les commandes
+            controleBloque = true;
+
+            oil.Visibility = Visibility.Hidden;
+
+            // lance l'animation 
+            RotateTransform rt = new RotateTransform();
+            imgMoto.RenderTransform = rt;
+
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = 0;
+            animation.To = TOURS_ANIMATION_HUILE; // Fait 2 tours rapides
+            animation.Duration = TimeSpan.FromSeconds(1.5); // Dure 1.5 secondes
+
+            // D. QUAND L'ANIMATION EST FINIE
+            animation.Completed += (s, e) =>
+            {
+                controleBloque = false; // commandes débloquées
+                rt.Angle = 0; // moto droite
+            };
+
+            rt.BeginAnimation(RotateTransform.AngleProperty, animation);
         }
         private void AfficherRejouer()
         {
             MainWindow main = Application.Current.MainWindow as MainWindow;
+
             MainWindow.minuterie.Stop();
             MainWindow.minuterieOil.Stop();
-            
+            MainWindow.minuterieVitesse.Stop();
+
             DialogRejouer rejouer = new DialogRejouer();
             rejouer.lbScoreActuel.Content = MainWindow.score;
             MainWindow.TableScore.Add(MainWindow.score);
@@ -77,10 +144,10 @@ namespace MotorBikeHighway
             rejouer.lbMeilleurScoreAffichage.Content = MainWindow.TableScore.Max();
             rejouer.Owner = main;
 
-            // ATTENTION : on utilise une lambda pour passer le paramètre
             rejouer.butRejouer.Click += (s, e) => ActionButRejouer(rejouer, s, e);
             rejouer.butAccueil.Click += (s, e) => main.AfficheDemarrage();
             rejouer.butAccueil.Click += (s, e) => MainWindow.musique.Stop();
+            rejouer.butAccueil.Click += (s, e) => MainWindow.minuterieVitesse.Stop();
             rejouer.butAccueil.Click += (s, e) => main.InitMusique();
             rejouer.butAccueil.Click += (s, e) => rejouer.Close();
             
@@ -107,6 +174,8 @@ namespace MotorBikeHighway
 
         public void DeplaceMotoGauche()
         {
+            if (controleBloque) return;
+
             double positionActuelle = Canvas.GetLeft(imgMoto);
             if (positionActuelle > LIMITE_GAUCHE)
                 Canvas.SetLeft(imgMoto, positionActuelle - VITESSE_LATERALE);
@@ -114,6 +183,8 @@ namespace MotorBikeHighway
 
         public void DeplaceMotoDroite()
         {
+            if (controleBloque) return;
+
             double positionActuelle = Canvas.GetLeft(imgMoto);
             if (positionActuelle < LIMITE_DROITE)
                 Canvas.SetLeft(imgMoto, positionActuelle + VITESSE_LATERALE);
@@ -167,10 +238,14 @@ namespace MotorBikeHighway
                         voitureActive.Visibility = Visibility.Hidden;
 
                         // nouvelle voiture
-                        Image nouvelleVoiture = images[col, random.Next(0, 3)];
+                        int indexAleatoire = random.Next(0, 3);
+                        Image nouvelleVoiture = images[col, indexAleatoire];
 
                         nouvelleVoiture.ClearValue(Canvas.TopProperty);
-                        Canvas.SetBottom(nouvelleVoiture, bottomActive + 1400);
+
+                        double decalage = indexAleatoire * 250;
+
+                        Canvas.SetBottom(nouvelleVoiture, 1400 + decalage);
 
                         // Rendre visible la nouvelle voiture
                         nouvelleVoiture.Visibility = Visibility.Visible;
@@ -181,7 +256,7 @@ namespace MotorBikeHighway
                 {
                     if (MainWindow.vies <= 1)
                     {
-                        MainWindow.vies = 0;
+                        MainWindow.vies = MainWindow.VIES_BASE;
                         AfficherRejouer();
                     }
                     else
