@@ -24,6 +24,7 @@ namespace MotorBikeHighway
         public static string Moto = "moto";
         public static int pasFond = 8;
         public static int score = 0;
+        public static int vies = 2;
         public static List<int> TableScore = new List<int>();
         public static MediaPlayer sonCrash;
         public static MediaPlayer sonMoto;
@@ -32,9 +33,9 @@ namespace MotorBikeHighway
         public MainWindow()
         {
             InitializeComponent();
+            InitializeTimer();
             AfficheDemarrage();
             InitMusique();
-            InitializeTimer();
             InitSon();
             this.KeyDown += MainWindow_KeyDown;
         }
@@ -69,34 +70,29 @@ namespace MotorBikeHighway
             // associe l’appel de la méthode Jeu à la fin de la minuterie
             minuterie.Tick += Jeu;
             minuterieOil = new DispatcherTimer();
-            minuterieOil.Interval = TimeSpan.FromSeconds(2);
-            minuterieOil.Tick += AfficheTacheOil;
-
+            minuterieOil.Interval = TimeSpan.FromSeconds(10);
+            minuterieOil.Tick += DeclencherHuile;
         }
-        public Image oil;
-        private async void AfficheTacheOil(object? sender, EventArgs e)
+        private void DeclencherHuile(object? sender, EventArgs e)
         {
-            oil = new Image();
-            Random rand = new Random();
-            Uri img = new Uri($"pack://application:,,,/img/oil_top_down.png");
-            oil.Source = new BitmapImage(img);
-            oil.Width = 50;
-            oil.Height = 50;
-            Canvas.SetLeft(oil, rand.Next(700));
-            Canvas.SetTop(oil, rand.Next(450));
-            canvasJeu.Children.Add(oil);
+            // On vérifie s'il y a bien un jeu en cours
+            if (ZoneJeu.Content is UCJeu monJeu)
+            {
+                // On appelle la méthode sur l'instance réelle du jeu
+                monJeu.AfficheTacheOil();
+            }
         }
-
         private void Jeu(object? sender, EventArgs e)
         {
             Deplace(FondBase, pasFond);
             Deplace(FondForet, pasFond);
-            
 
             if (ZoneJeu.Content is UCJeu ucJeu)
             {
+                Deplace(ucJeu.tacheHuile, pasFond);
                 ucJeu.DeplacerVoitures(pasFond);
                 ucJeu.lbScore.Content = score;
+                ucJeu.lbVies.Content = vies;
             }
 
         }

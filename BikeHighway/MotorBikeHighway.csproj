@@ -21,7 +21,6 @@
     <None Remove="img\biche.png" />
     <None Remove="img\Bonus.png" />
     <None Remove="img\camion.png" />
-    <None Remove="img\flaquehuile.png" />
     <None Remove="img\FondAccueil.png" />
     <None Remove="img\FondBase.png" />
     <None Remove="img\FondBaseRep.png" />
@@ -66,9 +65,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\camion.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\flaquehuile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\FondBase.png">

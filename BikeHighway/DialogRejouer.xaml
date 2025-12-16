@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="DialogRejouer" Height="500" Width="400"
         WindowStartupLocation="CenterOwner"
-        ResizeMode="NoResize"
-        >
+        ResizeMode="NoResize">
     <Grid>
         <Button x:Name="butAccueil" Content="Accueil" HorizontalAlignment="Center" Margin="0,419,0,0" VerticalAlignment="Top" Width="156" FontSize="24"/>
         <Button x:Name="butRejouer" Content="Rejouer" HorizontalAlignment="Center" Margin="0,364,0,0" VerticalAlignment="Top" Width="156" FontSize="24" />

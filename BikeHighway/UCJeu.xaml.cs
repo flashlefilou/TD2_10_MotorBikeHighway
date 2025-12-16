@@ -10,7 +10,7 @@ namespace MotorBikeHighway
 {
     public partial class UCJeu : UserControl
     {
-        
+        public Image tacheHuile { get { return oil; } }
         private const int LIMITE_GAUCHE = 70;
         private const int LIMITE_DROITE = 310;
         private const int VITESSE_LATERALE = 15;
@@ -19,8 +19,6 @@ namespace MotorBikeHighway
 
         private Rectangle debugRectMoto;
         private Rectangle debugRectVehicule;
-
-        public 
 
         Image[,] images;
         private Image[] voituresActives = new Image[3];
@@ -58,7 +56,14 @@ namespace MotorBikeHighway
             canvasJeu.Children.Add(r);
             return r;
         }
+        public void AfficheTacheOil()
+        {
+            Random rand = new Random();
+            Canvas.SetLeft(oil, rand.Next(95, 315));
+            Canvas.SetBottom(oil, rand.Next(800, 1000));
 
+            oil.Visibility = Visibility.Visible;
+        }
         private void AfficherRejouer()
         {
             MainWindow main = Application.Current.MainWindow as MainWindow;
@@ -182,6 +187,20 @@ namespace MotorBikeHighway
                     }
                     MainWindow.minuterie.Stop();
                     AfficherRejouer();
+                }
+                    if (MainWindow.vies <= 1)
+                    {
+                        MainWindow.vies = 0;
+                        AfficherRejouer();
+                    }
+                    else
+                    {
+                        MainWindow.vies--;
+                        // Réinitialiser la position de la moto au centre
+                        Canvas.SetLeft(imgMoto, 190); 
+                        InitialiserTroisVoitures();
+                    }
+                    
                 }
             }
         }
