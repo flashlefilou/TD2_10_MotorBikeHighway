@@ -51,10 +51,25 @@ namespace MotorBikeHighway
 
         private void ChkSFX_Changed(object sender, RoutedEventArgs e)
         {
+            MainWindow.SFXEnabled = chkSFX.IsChecked == true;
+
+            if (!MainWindow.SFXEnabled)
+            {
+                MainWindow.sonMoto?.Stop();
+                MainWindow.sonCrash?.Stop();
+            }
+
+
         }
 
         private void SliderSFX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (MainWindow.sonCrash == null || MainWindow.sonMoto == null) return;
+
+            double volume = e.NewValue / 100.0;
+
+            MainWindow.sonCrash.Volume = volume;
+            MainWindow.sonMoto.Volume = volume;
         }
 
         // --- NAVIGATION ---
@@ -69,6 +84,7 @@ namespace MotorBikeHighway
         private void BtnFermer_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            MainWindow.minuterie.Start();
         }
     }
 }

@@ -71,7 +71,7 @@ namespace MotorBikeHighway
             MainWindow.musique.Play();
 
         }
-        private void Musique_MediaEnded(object sender, EventArgs e)
+        private void Musique_MediaEnded(object sender, EventArgs e) 
         {
             MainWindow.conteurMusique++;
         }
