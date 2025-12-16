@@ -344,12 +344,7 @@ namespace MotorBikeHighway
                         MainWindow.sonCrash.Stop();
                         MainWindow.sonCrash.Play();
                     }
-                    MainWindow.minuterie.Stop();
-
-                }
-                }
-                }
-                }
+                    //MainWindow.minuterie.Stop();
                     if (MainWindow.vies <= 1)
                     {
                         Console.WriteLine(MainWindow.vies);
@@ -364,8 +359,6 @@ namespace MotorBikeHighway
                         InitialiserTroisVoitures();
                     }
                 }
-
-
             }
         }
         private bool IsCollision(Image moto, Image vehicule)
