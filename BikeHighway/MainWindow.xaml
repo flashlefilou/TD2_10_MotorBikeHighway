@@ -16,7 +16,6 @@
             <Image x:Name="FondForet" Source="/img/fondForet.png" 
                Height="700" Width="455" Stretch="Fill" 
                Canvas.Bottom="700"/>
-            <!--
             <Image x:Name="FondBase_Neige" Source="/img/FondBase_Neige.png" 
                Height="700" Width="455" Stretch="Fill" 
                Canvas.Bottom="1400"/>
@@ -26,7 +25,6 @@
             <Image x:Name="FondNeige_Base" Source="/img/FondNeige_Base.png" 
                Height="700" Width="455" Stretch="Fill" 
                Canvas.Bottom="2800"/>
-            -->
         </Canvas>
         <ContentControl x:Name="ZoneJeu">
         </ContentControl>

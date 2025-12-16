@@ -21,6 +21,8 @@ namespace MotorBikeHighway
     {
         public const int SCORE_BASE = 0;
         public const int VIES_BASE = 1;
+        public const int TAILLE_FENETRE = 700;
+        public const int HAUT_TOTAL_FONDS = 3500;
 
         // -- STATIQUES MINUTERIES --
         public static DispatcherTimer minuterie;
@@ -53,8 +55,8 @@ namespace MotorBikeHighway
             positionActuelle -= pas;
             Canvas.SetBottom(image, Canvas.GetBottom(image) - pas);
 
-            if (positionActuelle <= -700) // Si l'image est complètement sortie de l'écran en bas
-                positionActuelle += 1400; ; // remettre en haut
+            if (positionActuelle <= -TAILLE_FENETRE) // Si l'image est complètement sortie de l'écran en bas
+                positionActuelle += HAUT_TOTAL_FONDS; ; // remettre en haut
 
             Canvas.SetBottom(image, positionActuelle);
         }
@@ -108,6 +110,9 @@ namespace MotorBikeHighway
         {
             Deplace(FondBase, pasFond);
             Deplace(FondForet, pasFond);
+            Deplace(FondBase_Neige, pasFond);
+            Deplace(FondNeige, pasFond);
+            Deplace(FondNeige_Base, pasFond);
 
             if (ZoneJeu.Content is UCJeu ucJeu)
             {

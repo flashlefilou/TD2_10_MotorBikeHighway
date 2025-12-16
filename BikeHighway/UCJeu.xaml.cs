@@ -12,12 +12,16 @@ namespace MotorBikeHighway
     public partial class UCJeu : UserControl
     {
         public Image tacheHuile { get { return oil; } }
+
         private const int LIMITE_GAUCHE = 70;
         private const int LIMITE_DROITE = 310;
         private const int VITESSE_LATERALE = 15;
         private const double WINDOW_HEIGHT = 700.0;
         private const int NOUVELLE_POSITION_HUILE = 800;
         private const int TOURS_ANIMATION_HUILE = 720;
+        private const double DUREE_ANIMATION_HUILE = 1.5;
+        private const double DELAY_TRANSFORM_VIRAGE = 0.25;
+
         public static Random random = new Random();
 
         private Rectangle debugRectMoto;
@@ -26,6 +30,7 @@ namespace MotorBikeHighway
         Image[,] images;
         private double[] laneLefts = new double[3];
         private double dernierX = -999;
+        private bool enAlerteBarriere = false;
         private bool controleBloque = false;
 
         public UCJeu()
@@ -45,27 +50,12 @@ namespace MotorBikeHighway
             laneLefts[1] = Canvas.GetLeft(images[1, 0]);
             laneLefts[2] = Canvas.GetLeft(images[2, 0]);
             InitialiserTroisVoitures();
-            debugRectMoto = CreerRectangleDebug(Colors.LimeGreen);
-            debugRectVehicule = CreerRectangleDebug(Colors.Red);
-
 
             // point de pivot de la moto au centre de l'image
             imgMoto.RenderTransformOrigin = new Point(0.5, 0.5);
             // preparation de la rotation
             RotateTransform rt = new RotateTransform();
             imgMoto.RenderTransform = rt;
-        }
-        private Rectangle CreerRectangleDebug(Color couleur)
-        {
-            Rectangle r = new Rectangle();
-            r.Stroke = new SolidColorBrush(couleur);
-            r.StrokeThickness = 2;
-            r.Fill = Brushes.Transparent;
-
-
-            Panel.SetZIndex(r, 99);
-            canvasJeu.Children.Add(r);
-            return r;
         }
         public void AfficheTacheOil()
         {
@@ -96,7 +86,7 @@ namespace MotorBikeHighway
             Rect rectMoto = new Rect(Canvas.GetLeft(imgMoto), Canvas.GetBottom(imgMoto), imgMoto.Width, imgMoto.Height);
             Rect rectOil = new Rect(Canvas.GetLeft(oil), Canvas.GetBottom(oil), oil.Width, oil.Height);
 
-            // On réduit un peu la zone de collision de l'huile pour être gentil (Hitbox permissive)
+            // reduction legère de la zone de collision avec l'huile
             rectOil.Inflate(-10, -10);
 
             if (rectMoto.IntersectsWith(rectOil))
@@ -118,7 +108,7 @@ namespace MotorBikeHighway
             DoubleAnimation animation = new DoubleAnimation();
             animation.From = 0;
             animation.To = TOURS_ANIMATION_HUILE; // Fait 2 tours rapides
-            animation.Duration = TimeSpan.FromSeconds(1.5); // Dure 1.5 secondes
+            animation.Duration = TimeSpan.FromSeconds(DUREE_ANIMATION_HUILE); // Dure 1.5 secondes
 
             // D. QUAND L'ANIMATION EST FINIE
             animation.Completed += (s, e) =>
@@ -172,22 +162,87 @@ namespace MotorBikeHighway
             imgMoto.Source = new BitmapImage(img);
         }
 
-        public void DeplaceMotoGauche()
+        public async void DeplaceMotoGauche()
         {
             if (controleBloque) return;
 
             double positionActuelle = Canvas.GetLeft(imgMoto);
             if (positionActuelle > LIMITE_GAUCHE)
-                Canvas.SetLeft(imgMoto, positionActuelle - VITESSE_LATERALE);
+            {
+                TransformVirageMoin(positionActuelle);
+            }
+            else
+            {
+                TransformViragePlus(positionActuelle);
+                contactBarrieres();
+            }
+            await Task.Delay(TimeSpan.FromSeconds(DELAY_TRANSFORM_VIRAGE));
+            TransformToutDroit(positionActuelle);
         }
-
-        public void DeplaceMotoDroite()
+        public async void DeplaceMotoDroite()
         {
             if (controleBloque) return;
 
             double positionActuelle = Canvas.GetLeft(imgMoto);
             if (positionActuelle < LIMITE_DROITE)
-                Canvas.SetLeft(imgMoto, positionActuelle + VITESSE_LATERALE);
+            {
+                TransformViragePlus(positionActuelle);
+            }
+            else
+            {
+                TransformVirageMoin(positionActuelle);
+                contactBarrieres();
+            }
+            await Task.Delay(TimeSpan.FromSeconds(DELAY_TRANSFORM_VIRAGE));
+            TransformToutDroit(positionActuelle);
+        }
+        public void TransformVirageMoin(double positionActuelle)
+        {
+            Canvas.SetLeft(imgMoto, positionActuelle - VITESSE_LATERALE);
+            Uri imgLeft = new Uri($"pack://application:,,,/img/{MainWindow.Moto}_left.png");
+            imgMoto.Source = new BitmapImage(imgLeft);
+        }
+        public void TransformViragePlus(double positionActuelle)
+        {
+            Canvas.SetLeft(imgMoto, positionActuelle + VITESSE_LATERALE);
+            Uri imgRight = new Uri($"pack://application:,,,/img/{MainWindow.Moto}_right.png");
+            imgMoto.Source = new BitmapImage(imgRight);
+        }
+        public void TransformToutDroit(double positionActuelle)
+        {
+            Uri imgDroit = new Uri($"pack://application:,,,/img/{MainWindow.Moto}.png");
+            imgMoto.Source = new BitmapImage(imgDroit);
+        }
+        public async void contactBarrieres()
+        {
+            if (enAlerteBarriere == true)
+            {
+                AfficherRejouer();
+                return;
+            }
+            enAlerteBarriere = true;
+            txtScore.Foreground = Brushes.Red;
+            txtVies.Foreground = Brushes.Red;
+            lbVies.Foreground = Brushes.Red;
+            lbScore.Foreground = Brushes.Red;
+            for (int i = 0; i < 4; i++)
+            {
+                lineGauche.Visibility = Visibility.Visible;
+                lineDroite.Visibility = Visibility.Visible;
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                lineGauche.Visibility = Visibility.Hidden;
+                lineDroite.Visibility = Visibility.Hidden;
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            }
+            if (enAlerteBarriere == true)
+            {
+                enAlerteBarriere = false;
+                txtScore.Foreground = Brushes.Black;
+                txtVies.Foreground = Brushes.Black;
+                lbVies.Foreground = Brushes.Black;
+                lbScore.Foreground = Brushes.Black;
+            }
+            
         }
         private void InitialiserTroisVoitures()
         {
@@ -227,7 +282,7 @@ namespace MotorBikeHighway
                 if (voitureActive != null)
                 {
                     voitureActive.ClearValue(Canvas.TopProperty);
-                    
+
                     double bottomActive = Canvas.GetBottom(voitureActive) - pas;
                     // déplacement
                     Canvas.SetBottom(voitureActive, bottomActive);
@@ -261,8 +316,7 @@ namespace MotorBikeHighway
                         MainWindow.sonCrash.Play();
                     }
                     MainWindow.minuterie.Stop();
-                    AfficherRejouer();
-                }
+
                     if (MainWindow.vies <= 1)
                     {
                         MainWindow.vies = MainWindow.VIES_BASE;
@@ -272,11 +326,12 @@ namespace MotorBikeHighway
                     {
                         MainWindow.vies--;
                         // Réinitialiser la position de la moto au centre
-                        Canvas.SetLeft(imgMoto, 190); 
+                        Canvas.SetLeft(imgMoto, 190);
                         InitialiserTroisVoitures();
                     }
-                    
                 }
+
+
             }
         }
         private bool IsCollision(Image moto, Image vehicule)
@@ -288,25 +343,6 @@ namespace MotorBikeHighway
             double vehy = Canvas.GetBottom(vehicule);
             Rect rectangleVehicule = new Rect(vehx + 35, vehy +15, (int)vehicule.Width - 70, (int)vehicule.Height - 25);
             Rect rectangleMoto = new Rect(motox + 20, motoy + 10, (int)moto.Width - 40, (int)moto.Height - 25);
-
-
-            // ================
-            // HITBOX VISIBLE 
-            // ================
-
-            debugRectMoto.Width = rectangleMoto.Width;
-            debugRectMoto.Height = rectangleMoto.Height;
-            Canvas.SetLeft(debugRectMoto, rectangleMoto.X);  
-
-            debugRectMoto.ClearValue(Canvas.TopProperty);
-            Canvas.SetBottom(debugRectMoto, rectangleMoto.Y); 
-
-            debugRectVehicule.Width = rectangleVehicule.Width;
-            debugRectVehicule.Height = rectangleVehicule.Height;
-            Canvas.SetLeft(debugRectVehicule, rectangleVehicule.X); 
-            debugRectVehicule.ClearValue(Canvas.TopProperty);
-            Canvas.SetBottom(debugRectVehicule, rectangleVehicule.Y); 
-
             return rectangleMoto.IntersectsWith(rectangleVehicule);
         }
         

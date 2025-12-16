@@ -34,18 +34,21 @@
     <None Remove="img\moto2.png" />
     <None Remove="img\moto_blue.png" />
     <None Remove="img\moto_left.png" />
-    <None Remove="img\moto_left_blue.png" />
-    <None Remove="img\moto_left_pink.png" />
     <None Remove="img\moto_pink.png" />
+    <None Remove="img\moto_pink_left.png" />
+	<None Remove="img\moto_pink_right.png" />
+	<None Remove="img\moto_blue_left.png" />
+	<None Remove="img\moto_blue_right.png" />
     <None Remove="img\moto_right.png" />
-    <None Remove="img\moto_right_blue.png" />
-    <None Remove="img\moto_right_pink.png" />
     <None Remove="img\oil_top_down.png" />
     <None Remove="img\voiture.png" />
     <None Remove="sons\crash.wav" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="img\moto_pink_left.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="sons\crash.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -94,10 +97,7 @@
     <Resource Include="img\moto_left.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\moto_left_blue.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\moto_left_pink.png">
+    <Resource Include="img\moto_blue_left.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\moto_pink.png">
@@ -106,10 +106,10 @@
     <Resource Include="img\moto_right.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\moto_right_blue.png">
+    <Resource Include="img\moto_blue_right.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\moto_right_pink.png">
+    <Resource Include="img\moto_pink_right.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\oil_top_down.png">
