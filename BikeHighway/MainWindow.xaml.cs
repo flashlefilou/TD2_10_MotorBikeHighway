@@ -27,6 +27,7 @@ namespace MotorBikeHighway
         // -- STATIQUES MINUTERIES --
         public static DispatcherTimer minuterie;
         public static DispatcherTimer minuterieOil;
+        public static DispatcherTimer minuterieBonus;
         public static DispatcherTimer minuterieVitesse;
 
         // -- VARIABLES STATIQUES --
@@ -37,6 +38,7 @@ namespace MotorBikeHighway
         public static List<int> TableScore = new List<int>();
         public static MediaPlayer sonCrash;
         public static MediaPlayer sonMoto;
+        public static MediaPlayer sonColisionHuile;
         public const int volumeSFX = 1;
         public static bool SFXEnabled = true;
         public MainWindow()
@@ -85,6 +87,10 @@ namespace MotorBikeHighway
             minuterieOil.Interval = TimeSpan.FromSeconds(10);
             minuterieOil.Tick += DeclencherHuile;
 
+            minuterieBonus = new DispatcherTimer();
+            minuterieBonus.Interval = TimeSpan.FromSeconds(5);
+            minuterieBonus.Tick += DeclencherBonus;
+
             minuterieVitesse = new DispatcherTimer();
             // configure l'intervalle du Timer huile : vitesse augmente toute les 8 secondes
             minuterieVitesse.Interval = TimeSpan.FromSeconds(8);
@@ -98,6 +104,15 @@ namespace MotorBikeHighway
                 monJeu.AfficheTacheOil();
             }
         }
+        private void DeclencherBonus(object? sender, EventArgs e)
+        {
+            // Lien entre UCJeu (AfficheTacheOil) et MainWindow 
+            if (ZoneJeu.Content is UCJeu monJeu)
+            {
+                monJeu.AfficheBonus();
+            }
+        }
+
         private void AugmenterVitesse(object? sender, EventArgs e)
         {
             if (pasFond < 25)
@@ -117,7 +132,7 @@ namespace MotorBikeHighway
             if (ZoneJeu.Content is UCJeu ucJeu)
             {
                 Image oil = ucJeu.tacheHuile;
-
+                Image bonus = ucJeu.bonus;
                 if (oil.Visibility == Visibility.Visible)
                 {
                     double positionActuelle = Canvas.GetBottom(oil);
@@ -137,6 +152,25 @@ namespace MotorBikeHighway
                     }
                 }
                 ucJeu.VerifierCollisionHuile();
+                if (bonus.Visibility == Visibility.Visible)
+                {
+                    double positionActuelle = Canvas.GetBottom(bonus);
+                    positionActuelle -= pasFond;
+
+                    // Si le bonus sort de l'ecran
+                    if (positionActuelle <= -bonus.Height)
+                    {
+                        // On la cache et on ARRETE de la boucler.
+                        // Elle ne réapparaîtra que quand "minuterieOil" déclenchera "AfficheTacheOil"
+                        bonus.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        // Sinon, on la déplace
+                        Canvas.SetBottom(bonus, positionActuelle);
+                    }
+                }
+                ucJeu.VerifierCollisionBonus();
 
                 ucJeu.DeplacerVoitures(pasFond);
                 ucJeu.lbScore.Content = score;
@@ -172,6 +206,7 @@ namespace MotorBikeHighway
             minuterie.Start(); // démarrer la minuterie pour Jeu
             minuterieOil.Start(); // démarrer la minuterie pour Huile
             minuterieVitesse.Start(); // démarrer la minuterie pour Vitesse
+            minuterieBonus.Start();
 
             uc.lbScore.Content = score;
             this.Focusable = true;
@@ -210,6 +245,9 @@ namespace MotorBikeHighway
             sonMoto = new MediaPlayer();
             sonMoto.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "sons/motorcycle-engine-rev-2-337870.mp3"));
             sonMoto.Volume= volumeSFX;
+            sonColisionHuile = new MediaPlayer();
+            sonColisionHuile.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "sons/VEHSkid_Crissement de pneus 2 (ID 2369)_LS.wav"));
+            sonColisionHuile.Volume = volumeSFX;
         }
         public void InitMusique()
         {

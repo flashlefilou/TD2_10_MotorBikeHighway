@@ -28,6 +28,7 @@
             <Image x:Name="gVoiture1" Height="152" Canvas.Left="57" Source="/img/voiture.png" Stretch="Fill" Canvas.Top="42" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Visible"/>
             
             <Image x:Name="oil" Source="/img/oil_top_down.png" Stretch="Fill" Width="50" Height="50" Canvas.Bottom="1000" Canvas.Left="190" Panel.ZIndex="1"/>
+            <Image x:Name="imgBonus" Source="/img/Bonus.png" Stretch="Fill" Width="50" Height="50" Canvas.Bottom="1200" Canvas.Left="100" Panel.ZIndex="1"/>
         </Canvas>
 
         <Canvas x:Name="canvasJeu" Panel.ZIndex="3">
