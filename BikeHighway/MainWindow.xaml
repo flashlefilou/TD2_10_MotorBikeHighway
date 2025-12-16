@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="455"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" WindowStyle="None">
     <Grid>
         <Canvas x:Name="canvasJeu">
             <Image x:Name="FondBase" Source="/img/fondBase.png" 

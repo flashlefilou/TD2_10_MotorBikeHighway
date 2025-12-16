@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.Metrics;
+using System.Media;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,12 +33,17 @@ namespace MotorBikeHighway
         public static int score = 0;
         public static int vies = 1;
         public static List<int> TableScore = new List<int>();
+        public static MediaPlayer sonCrash;
+        public static MediaPlayer sonMoto;
+        public const int volumeSFX = 1;
+        public static bool SFXEnabled = true;
         public MainWindow()
         {
             InitializeComponent();
             InitializeTimer();
             AfficheDemarrage();
             InitMusique();
+            InitSon();
             this.KeyDown += MainWindow_KeyDown;
         }
         public void Deplace(Image image, int pas)
@@ -165,6 +171,12 @@ namespace MotorBikeHighway
             uc.lbScore.Content = score;
             this.Focusable = true;
             this.Focus();
+            if (MainWindow.SFXEnabled)
+            {
+                MainWindow.sonMoto.Stop();
+                MainWindow.sonMoto.Play();
+            }
+            MainWindow.musique.Volume = valeurSon;
         }
 
 
@@ -185,6 +197,15 @@ namespace MotorBikeHighway
         public static MediaPlayer musique;
 
         public static double valeurSon = 50;
+        public void InitSon()
+        {
+            sonCrash = new MediaPlayer();
+            sonCrash.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "sons/crash.mp3"));
+            sonCrash.Volume = volumeSFX;
+            sonMoto = new MediaPlayer();
+            sonMoto.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "sons/motorcycle-engine-rev-2-337870.mp3"));
+            sonMoto.Volume= volumeSFX;
+        }
         public void InitMusique()
         {
 

@@ -8,7 +8,7 @@
         Height="500" Width="400"
         WindowStartupLocation="CenterOwner" 
         ResizeMode="NoResize"
-        Background="#F0F0F0">
+        Background="#F0F0F0" WindowStyle="None">
 
     <Grid Margin="15">
         <Grid.RowDefinitions>

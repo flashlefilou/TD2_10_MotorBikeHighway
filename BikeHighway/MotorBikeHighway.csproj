@@ -42,6 +42,13 @@
     <None Remove="img\moto_right_pink.png" />
     <None Remove="img\oil_top_down.png" />
     <None Remove="img\voiture.png" />
+    <None Remove="sons\crash.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="sons\crash.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -115,6 +122,12 @@
 
   <ItemGroup>
     <None Update="sons\action-racing-speed-music-331470.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="sons\crash.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="sons\motorcycle-engine-rev-2-337870.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="sons\retro-retro-synthwave-gaming-music-270173.mp3">

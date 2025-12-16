@@ -254,6 +254,15 @@ namespace MotorBikeHighway
                 }
                 if (IsCollision(imgMoto, voitureActive))
                 {
+                    MainWindow.musique.Volume = 0.1;
+                    if (MainWindow.SFXEnabled)
+                    {
+                        MainWindow.sonCrash.Stop();
+                        MainWindow.sonCrash.Play();
+                    }
+                    MainWindow.minuterie.Stop();
+                    AfficherRejouer();
+                }
                     if (MainWindow.vies <= 1)
                     {
                         MainWindow.vies = MainWindow.VIES_BASE;
