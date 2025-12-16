@@ -136,6 +136,9 @@
     <None Update="sons\son acceuil.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="sons\VEHSkid_Crissement de pneus 2 %28ID 2369%29_LS.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

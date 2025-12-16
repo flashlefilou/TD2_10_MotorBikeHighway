@@ -57,6 +57,7 @@ namespace MotorBikeHighway
             {
                 MainWindow.sonMoto?.Stop();
                 MainWindow.sonCrash?.Stop();
+                MainWindow.sonColisionHuile?.Stop();
             }
 
 
@@ -70,6 +71,7 @@ namespace MotorBikeHighway
 
             MainWindow.sonCrash.Volume = volume;
             MainWindow.sonMoto.Volume = volume;
+            MainWindow.sonColisionHuile.Volume = volume;
         }
 
         // --- NAVIGATION ---
