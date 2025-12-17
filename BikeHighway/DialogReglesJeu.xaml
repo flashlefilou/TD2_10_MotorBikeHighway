@@ -29,16 +29,10 @@
                     <Bold>Progression :</Bold> Le score augmente après chaque ligne de voitures dépassée. La vitesse accélère avec le temps.
                 </TextBlock>
 
-                <TextBlock TextWrapping="Wrap" Margin="0,5">
-                    <Bold>Ennemis :</Bold> Les voitures changent de voie et de vitesse aléatoirement.
-                </TextBlock>
+                <TextBlock TextWrapping="Wrap" Margin="0,5"><Bold/><Run Text=" Les voitures changent "/><Run Language="fr-fr" Text=" de "/><Run Text="vitesse aléatoirement."/></TextBlock>
 
                 <TextBlock TextWrapping="Wrap" Margin="0,5">
                     <Bold>⚠️ Dangers :</Bold>
-                </TextBlock>
-
-                <TextBlock TextWrapping="Wrap" Margin="10,0,0,5">
-                    • <Bold>Biches :</Bold> Elles traversent la route, esquivez-les !
                 </TextBlock>
                 <TextBlock TextWrapping="Wrap" Margin="10,0,0,5">
                     • <Bold>Huile :</Bold> Provoque un 360°. Contrôle impossible jusqu'à stabilisation.
