@@ -19,10 +19,13 @@ namespace MotorBikeHighway
     /// </summary>
     public partial class MainWindow : Window
     {
+        //-- CONSTANTES -- 
         public const int SCORE_BASE = 0;
         public const int VIES_BASE = 1;
-        public const int TAILLE_FENETRE = 700;
+        public const int FENETRE_LARGEUR = 455;
+        public const int FENETRE_HAUTEUR = 700;
         public const int HAUT_TOTAL_FONDS = 3500;
+        public const int volumeSFX = 1;
 
         // -- STATIQUES MINUTERIES --
         public static DispatcherTimer minuterie;
@@ -39,7 +42,6 @@ namespace MotorBikeHighway
         public static MediaPlayer sonCrash;
         public static MediaPlayer sonMoto;
         public static MediaPlayer sonColisionHuile;
-        public const int volumeSFX = 1;
         public static bool SFXEnabled = true;
         public MainWindow()
         {
@@ -57,7 +59,7 @@ namespace MotorBikeHighway
             positionActuelle -= pas;
             Canvas.SetBottom(image, Canvas.GetBottom(image) - pas);
 
-            if (positionActuelle <= -TAILLE_FENETRE) // Si l'image est complètement sortie de l'écran en bas
+            if (positionActuelle <= -FENETRE_HAUTEUR) // Si l'image est complètement sortie de l'écran en bas
                 positionActuelle += HAUT_TOTAL_FONDS; ; // remettre en haut
 
             Canvas.SetBottom(image, positionActuelle);
@@ -88,7 +90,7 @@ namespace MotorBikeHighway
             minuterieOil.Tick += DeclencherHuile;
 
             minuterieBonus = new DispatcherTimer();
-            minuterieBonus.Interval = TimeSpan.FromSeconds(5);
+            minuterieBonus.Interval = TimeSpan.FromSeconds(15);
             minuterieBonus.Tick += DeclencherBonus;
 
             minuterieVitesse = new DispatcherTimer();

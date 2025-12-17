@@ -19,7 +19,6 @@ namespace MotorBikeHighway
     /// </summary>
     public partial class DialogOptions : Window
     {
-        //public MainWindow main;
         public DialogOptions()
         {
             InitializeComponent();
@@ -39,10 +38,8 @@ namespace MotorBikeHighway
 
         private void SliderMusique_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // Vérifie que main et musique sont initialisés
             if (MainWindow.musique == null) return;
 
-            // e.NewValue va de 0 à 100, MediaPlayer.Volume attend 0.0 à 1.0
             MainWindow.musique.Volume = e.NewValue / 100.0;
         }
         

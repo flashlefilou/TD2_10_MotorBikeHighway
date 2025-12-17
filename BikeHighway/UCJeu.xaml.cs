@@ -11,29 +11,27 @@ namespace MotorBikeHighway
 {
     public partial class UCJeu : UserControl
     {
-        public Image tacheHuile { get { return oil; } }
-        public Image bonus {  get { return imgBonus; } }
-        private const int LIMITE_GAUCHE = 70;
-        private const int LIMITE_DROITE = 310;
-        private const int VITESSE_LATERALE = 15;
-        private const double WINDOW_HEIGHT = 700.0;
+        // == Constantes == 
+        public const int VITESSE_LATERALE = 15;
+        public const int LIMITE_GAUCHE = 70;
+        public const int LIMITE_DROITE = 310;
+        public const int DISTANCE_MIN_OBJET = 60;
         private const int NOUVELLE_POSITION_HUILE = 800;
         private const int TOURS_ANIMATION_HUILE = 720;
         private const double DUREE_ANIMATION_HUILE = 1.5;
         private const double DELAY_TRANSFORM_VIRAGE = 0.25;
 
+        public Image tacheHuile { get { return oil; } }
+        public Image bonus {  get { return imgBonus; } }
+
         public static Random random = new Random();
-        private const int DISTANCE_MIN_ENTRE_OBJETS = 60;
 
-        private Rectangle debugRectMoto;
-        private Rectangle debugRectVehicule;
-
-        Image[,] images;
-        private double[] laneLefts = new double[3];
         private double dernierX = -999;
         private bool enAlerteBarriere = false;
         private bool controleBloque = false;
 
+        private double[] laneLefts = new double[3];
+        Image[,] images;
         public UCJeu()
         {
             InitializeComponent();
@@ -76,7 +74,7 @@ namespace MotorBikeHighway
             while (
                 Math.Abs(nouveauX - dernierX) < 50 ||
                 (autreObjet.Visibility == Visibility.Visible &&
-                 Math.Abs(nouveauX - Canvas.GetLeft(autreObjet)) < DISTANCE_MIN_ENTRE_OBJETS)
+                 Math.Abs(nouveauX - Canvas.GetLeft(autreObjet)) < DISTANCE_MIN_OBJET)
             );
 
             dernierX = nouveauX;
@@ -85,29 +83,11 @@ namespace MotorBikeHighway
             Canvas.SetBottom(objet, NOUVELLE_POSITION_HUILE);
             objet.Visibility = Visibility.Visible;
         }
-        private bool DetecterCollision(Image a, Image b)
-        {
-            Rect rectA = new Rect(
-                Canvas.GetLeft(a),
-                Canvas.GetBottom(a),
-                a.Width,
-                a.Height);
-
-            Rect rectB = new Rect(
-                Canvas.GetLeft(b),
-                Canvas.GetBottom(b),
-                b.Width,
-                b.Height);
-
-            rectB.Inflate(-10, -10);
-
-            return rectA.IntersectsWith(rectB);
-        }
         public void VerifierCollisionHuile()
         {
             // 1. Si on glisse déjà ou si l'huile est cachée, on ne vérifie pas
             if (controleBloque || oil.Visibility != Visibility.Visible) return;
-            if(DetecterCollision(imgMoto, oil))
+            if(isCollisionObjets(imgMoto, oil))
             {
                 DeclencherGlissade();
                 MainWindow.sonColisionHuile.Stop();
@@ -118,7 +98,7 @@ namespace MotorBikeHighway
         {
             // 1. Si on glisse déjà ou si le bonus est cachée, on ne vérifie pas
             if (controleBloque || bonus.Visibility != Visibility.Visible) return;
-            if (DetecterCollision(imgMoto, bonus))
+            if (isCollisionObjets(imgMoto, bonus))
             {
                 bonus.Visibility = Visibility.Hidden;
                 MainWindow.vies++;
@@ -330,14 +310,14 @@ namespace MotorBikeHighway
 
                         double decalage = indexAleatoire * 250;
 
-                        Canvas.SetBottom(nouvelleVoiture, 1400 + decalage);
+                        Canvas.SetBottom(nouvelleVoiture, (MainWindow.FENETRE_HAUTEUR * 2) + decalage);
 
                         // Rendre visible la nouvelle voiture
                         nouvelleVoiture.Visibility = Visibility.Visible;
                         MainWindow.score++;
                     }
                 }
-                if (IsCollision(imgMoto, voitureActive))
+                if (IsCollisionVehicules(imgMoto, voitureActive))
                 {
                     if (MainWindow.SFXEnabled)
                     {
@@ -361,7 +341,7 @@ namespace MotorBikeHighway
                 }
             }
         }
-        private bool IsCollision(Image moto, Image vehicule)
+        private bool IsCollisionVehicules(Image moto, Image vehicule)
         {
             double motox = Canvas.GetLeft(moto);
             double motoy = Canvas.GetBottom(moto);
@@ -370,8 +350,27 @@ namespace MotorBikeHighway
             double vehy = Canvas.GetBottom(vehicule);
             Rect rectangleVehicule = new Rect(vehx + 35, vehy +15, (int)vehicule.Width - 70, (int)vehicule.Height - 25);
             Rect rectangleMoto = new Rect(motox + 20, motoy + 10, (int)moto.Width - 40, (int)moto.Height - 25);
+            
             return rectangleMoto.IntersectsWith(rectangleVehicule);
         }
-        
+        private bool isCollisionObjets(Image a, Image b)
+        {
+            Rect rectA = new Rect(
+                Canvas.GetLeft(a),
+                Canvas.GetBottom(a),
+                a.Width,
+                a.Height);
+
+            Rect rectB = new Rect(
+                Canvas.GetLeft(b),
+                Canvas.GetBottom(b),
+                b.Width,
+                b.Height);
+
+            rectB.Inflate(-10, -10);
+
+            return rectA.IntersectsWith(rectB);
+        }
+
     }
 }
